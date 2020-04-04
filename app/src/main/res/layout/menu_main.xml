@@ -22,7 +22,8 @@
         android:background="#F6CED8"
         android:layout_alignParentBottom="true"
         app:itemTextColor="@drawable/select_bottom_design"
-        app:menu="@menu/menu_bottom">
+        app:menu="@menu/menu_bottom"
+        app:labelVisibilityMode="labeled">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>
