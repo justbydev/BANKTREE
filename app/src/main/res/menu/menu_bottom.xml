@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:checked="true"
         android:id="@+id/menu_cook"
         android:title="요리사"
         android:enabled="true"
