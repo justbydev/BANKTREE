@@ -26,7 +26,7 @@ public class MenuActivity extends AppCompatActivity {
         fragment4=new Fragment4();
         fragment5=new Fragment5();
         bottomNavigationView=findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment3).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
