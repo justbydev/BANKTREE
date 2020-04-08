@@ -19,6 +19,17 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ViewGroup viewgroup=(ViewGroup)inflater.inflate(R.layout.fragment1, container, false);
+        Button button=viewgroup.findViewById(R.id.edit_button);
+        final LinearLayout listView=viewgroup.findViewById(R.id.scroll_container);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context=getContext().getApplicationContext();
+                LayoutInflater inflater2=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+                inflater2.inflate(R.layout.cook_text, listView, true);
+            }
+        });
+        return viewgroup;
     }
 }
