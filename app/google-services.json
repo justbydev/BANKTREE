@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "122635206392",
+    "firebase_url": "https://sinupin-8fa83.firebaseio.com",
+    "project_id": "sinupin-8fa83",
+    "storage_bucket": "sinupin-8fa83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122635206392:android:b98d6214425f8a91cb450d",
+        "android_client_info": {
+          "package_name": "com.example.homeshef"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122635206392-362i4954he8e6irrq3ovuf8t5uq19mf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.homeshef",
+            "certificate_hash": "ded6ec490573d2dfb3021651c442372241bb56fd"
+          }
+        },
+        {
+          "client_id": "122635206392-t8b7kdfnb7i6ktg97pkkni8qeei3713a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC49HXPVcYtB4yb7Z-dsqQxhDkWeehCcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122635206392-t8b7kdfnb7i6ktg97pkkni8qeei3713a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
