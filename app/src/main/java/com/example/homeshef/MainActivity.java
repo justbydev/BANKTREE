@@ -1,13 +1,20 @@
 package com.example.homeshef;
 
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+=======
+>>>>>>> master
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+<<<<<<< HEAD
+=======
+import androidx.annotation.NonNull;
+>>>>>>> master
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeshef.R;
@@ -16,9 +23,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+<<<<<<< HEAD
 import java.util.regex.Pattern;
 
 public class MainActivity<FirebaseAuth> extends AppCompatActivity {
+
+    // 비밀번호 정규식
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
+=======
+
+import java.util.regex.Pattern;
+>>>>>>> master
+
+    // 파이어베이스 인증 객체 생성
+    private FirebaseAuth firebaseAuth;
+
+    // 이메일과 비밀번호
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+
+    private String email = "";
+    private String password = "";
 
     // 비밀번호 정규식
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
