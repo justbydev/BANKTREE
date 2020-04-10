@@ -26,5 +26,5 @@
         app:menu="@menu/menu_bottom"
         app:labelVisibilityMode="labeled">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
+    <!--menu에는 menu/item을 통해 생성된 menu_buttom을 사용, itemTextColor에는 item에서 state_checked를 사용한 select_bottom_design 사용-->
 </RelativeLayout>
