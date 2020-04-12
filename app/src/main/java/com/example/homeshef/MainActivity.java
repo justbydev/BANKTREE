@@ -1,6 +1,6 @@
 package com.example.homeshef;
 
-import android.app.ProgressDialog;
+import android.app.ProgressDialog;//로딩 시 메시지 뜨도록
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         //email과 password가 제대로 입력되어 있다면 계속 진행된다.
