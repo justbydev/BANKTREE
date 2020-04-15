@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +22,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editName;
+    RadioGroup genderradio;
+    DatePicker birthpicker;
     Button buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
@@ -48,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editName=(EditText)findViewById(R.id.editTextName);
+        genderradio=(RadioGroup)findViewById(R.id.genderradio);
+        birthpicker=(DatePicker)findViewById(R.id.birthpicker);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
@@ -63,6 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String name=editName.getText().toString().trim();
+        String gender=null;
+        if(genderradio.getCheckedRadioButtonId()!=-1){
+            RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
+            rd.getText().toString().trim();
+        }
+        int year=birthpicker.getYear();
+        int month=birthpicker.getMonth()+1;
+        int day=birthpicker.getDayOfMonth();
         //email과 password가 비었는지 아닌지를 체크 한다.
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -70,6 +90,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this, "성명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(gender)){
+            Toast.makeText(this, "성별을 체크해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
