@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
@@ -72,17 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Firebse creating a new user
     private void registerUser(){
         //사용자가 입력하는 email, password를 가져온다.
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
-        String name=editName.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        final String name=editName.getText().toString().trim();
         String gender=null;
         if(genderradio.getCheckedRadioButtonId()!=-1){
             RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
-            rd.getText().toString().trim();
+            gender=rd.getText().toString().trim();
         }
-        int year=birthpicker.getYear();
-        int month=birthpicker.getMonth()+1;
-        int day=birthpicker.getDayOfMonth();
+        final int year=birthpicker.getYear();
+        final int month=birthpicker.getMonth()+1;
+        final int day=birthpicker.getDayOfMonth();
         //email과 password가 비었는지 아닌지를 체크 한다.
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -106,11 +108,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.show();
 
         //creating a new user
+
+        final String finalGender = gender;
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            DatabaseReference reff= FirebaseDatabase.getInstance().getReference().child("Member");
+                            Member member=new Member();
+
+                            member.setEmail(email);
+                            member.setName(name);
+                            member.setGender(finalGender);
+                            member.setYear(year);
+                            member.setMonth(month);
+                            member.setDay(day);
+                            Toast.makeText(MainActivity.this, member.getEmail(), Toast.LENGTH_SHORT).show();
+                            reff.child("mem").setValue(member);
+                            Toast.makeText(MainActivity.this, member.getName(), Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
