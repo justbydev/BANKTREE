@@ -77,10 +77,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
         final String name=editName.getText().toString().trim();
-        final String gender=null;
+        String gender=null;
         if(genderradio.getCheckedRadioButtonId()!=-1){
             RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
-            rd.getText().toString().trim();
+            gender=rd.getText().toString().trim();
         }
         final int year=birthpicker.getYear();
         final int month=birthpicker.getMonth()+1;
@@ -108,21 +108,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.show();
 
         //creating a new user
+
+        final String finalGender = gender;
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             DatabaseReference reff= FirebaseDatabase.getInstance().getReference().child("Member");
-                            Member member=new Member;
+                            Member member=new Member();
 
                             member.setEmail(email);
                             member.setName(name);
-                            member.setGender(gender);
+                            member.setGender(finalGender);
                             member.setYear(year);
                             member.setMonth(month);
                             member.setDay(day);
-                            reff.child(email).setValue(member);
+                            Toast.makeText(MainActivity.this, member.getEmail(), Toast.LENGTH_SHORT).show();
+                            reff.child("mem").setValue(member);
+                            Toast.makeText(MainActivity.this, member.getName(), Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
