@@ -74,17 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Firebse creating a new user
     private void registerUser(){
         //사용자가 입력하는 email, password를 가져온다.
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
-        String name=editName.getText().toString().trim();
-        String gender=null;
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        final String name=editName.getText().toString().trim();
+        final String gender=null;
         if(genderradio.getCheckedRadioButtonId()!=-1){
             RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
             rd.getText().toString().trim();
         }
-        int year=birthpicker.getYear();
-        int month=birthpicker.getMonth()+1;
-        int day=birthpicker.getDayOfMonth();
+        final int year=birthpicker.getYear();
+        final int month=birthpicker.getMonth()+1;
+        final int day=birthpicker.getDayOfMonth();
         //email과 password가 비었는지 아닌지를 체크 한다.
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -114,7 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             DatabaseReference reff= FirebaseDatabase.getInstance().getReference().child("Member");
+                            Member member=new Member;
 
+                            member.setEmail(email);
+                            member.setName(name);
+                            member.setGender(gender);
+                            member.setYear(year);
+                            member.setMonth(month);
+                            member.setDay(day);
+                            reff.child(email).setValue(member);
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
