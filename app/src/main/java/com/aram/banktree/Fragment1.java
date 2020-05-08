@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+
+import com.aram.banktree.R;
 
 
 public class Fragment1 extends Fragment {

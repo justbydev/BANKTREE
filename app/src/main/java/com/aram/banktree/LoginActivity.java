@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,9 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.homeshef.FindActivity;
-import com.example.homeshef.MainActivity;
-import com.example.homeshef.R;
+import com.aram.banktree.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

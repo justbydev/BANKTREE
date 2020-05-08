@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 import android.app.ProgressDialog;//로딩 시 메시지 뜨도록
 import android.content.Intent;
@@ -16,15 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.homeshef.R;
+import com.aram.banktree.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

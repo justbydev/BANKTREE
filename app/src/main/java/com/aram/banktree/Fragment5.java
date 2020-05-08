@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aram.banktree.R;
 
 
 public class Fragment5 extends Fragment {

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:122635206392:android:b98d6214425f8a91cb450d",
         "android_client_info": {
-          "package_name": "com.example.homeshef"
+          "package_name": "com.aram.banktree"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "122635206392-362i4954he8e6irrq3ovuf8t5uq19mf6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.homeshef",
+            "package_name": "com.aram.banktree",
             "certificate_hash": "ded6ec490573d2dfb3021651c442372241bb56fd"
           }
         },

@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,9 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.homeshef.LoginActivity;
-import com.example.homeshef.MainActivity;
-import com.example.homeshef.R;
+import com.aram.banktree.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

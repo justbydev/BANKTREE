@@ -1,4 +1,4 @@
-package com.example.homeshef;
+package com.aram.banktree;
 
 public class Member {
     String email;
