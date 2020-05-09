@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //define view objects
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            DatabaseReference reff= FirebaseDatabase.getInstance().getReference().child("Member");
+                            DatabaseReference memberreference= FirebaseDatabase.getInstance().getReference("Member");
                             Member member=new Member();
 
                             member.setEmail(email);
@@ -122,14 +124,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             member.setYear(year);
                             member.setMonth(month);
                             member.setDay(day);
-                            Toast.makeText(MainActivity.this, member.getEmail(), Toast.LENGTH_SHORT).show();
-                            reff.child("mem").setValue(member);
-                            Toast.makeText(MainActivity.this, member.getName(), Toast.LENGTH_SHORT).show();
+                            memberreference.child("mem").push().setValue(member);
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //에러발생시
-                            textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
+                            if(password.length()<6){
+                                textviewMessage.setText("암호 최소 6자리 이상\n");
+                            }
+                            else{
+                                textviewMessage.setText("서버 에러\n");
+                            }
                             Toast.makeText(MainActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
@@ -149,6 +154,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == textviewSingin) {
             //TODO
             startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
+        }
+    }
+    private void checkpassword(String password, String repassword){
+        if(password.length()<8||!Pattern.matches("^([a-zA-Z0-9])$", password)){
+            textviewMessage.setText("비밀번호는 영문자, 숫자 포함 8자리 이상입니다.\n");
+            return;
+        }
+        if(!password.equals(repassword)){
+            textviewMessage.setText("비밀번호가 일치하지 않습니다.\n");
+            return;
+        }
+    }
+    private void checkemail(String email, FirebaseAuth mAuth){
+        if(!Pattern.matches("^([a-zA-Z0-9]+@[a-zA-Z0-9]+)$", email)){
+            textviewMessage.setText("제대로 된 이메일 형식이 아닙니다.\n");
+            return;
         }
     }
 }
