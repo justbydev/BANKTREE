@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        validateemailbutton=(Button)findViewById(R.id.validateemailbutton);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         passwordchecktext=(TextView)findViewById(R.id.passwordchecktext);
         editTextPassword2=(EditText)findViewById(R.id.editTextPassword2);
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
-        validateemailbutton=(Button)findViewById(R.id.validateemailbutton);
         progressDialog = new ProgressDialog(this);
 
         //이메일 형식에 맞는지 체크, 이메일 형식에 맞으면 파란색으로 보임
@@ -106,6 +107,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editTextEmail.setTextColor(Color.BLACK);
                     emailcheck=0;
                 }
+            }
+        });
+        validateemailbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FirebaseUser user=firebaseAuth.getCurrentUser();
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            validateemailbutton.setText("완료");
+                        }
+                    }
+                });
             }
         });
         //비밀번호 형식에 맞는지 체크, 맞으면 올바른 비밀번호라고 알려줌
@@ -190,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                                             }
                                             else{
-                                                textviewMessage.setText("서버 에러\n");
+                                                textviewMessage.setText("서버에러\n");
                                             }
                                             progressDialog.dismiss();
                                         }
