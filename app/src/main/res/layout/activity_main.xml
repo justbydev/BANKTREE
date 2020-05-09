@@ -118,7 +118,7 @@
         android:layout_weight="1.03"
         android:orientation="vertical">
 
-        <Textview
+        <TextView
             android:id="@+id/emailerrortext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,7 +140,14 @@
             android:inputType="textPassword" />
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/passwordchecktext"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:text="영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -148,7 +155,6 @@
         android:orientation="vertical">
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -163,7 +169,14 @@
             android:hint="비밀번호를 다시 입력해주세요."
             android:inputType="textPassword" />
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/passwordequaltext"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:text="비밀번호가 일치하지 않습니다"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

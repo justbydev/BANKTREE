@@ -2,8 +2,11 @@ package com.aram.banktree;
 
 import android.app.ProgressDialog;//로딩 시 메시지 뜨도록
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
+    TextView passwordchecktext;
     EditText editTextPassword2;
+    TextView passwordequaltext;
     EditText editName;
     RadioGroup genderradio;
     DatePicker birthpicker;
@@ -43,10 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView textviewMessage;
     TextView emailerrortext;
     ProgressDialog progressDialog;
+    private String email;
+    private String password;
+    private String repassword;
     //define firebase object
     FirebaseAuth firebaseAuth;
+    String emailValidation="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    String passwordValidation="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&]).{8,}.$";
     int emailcheck=0;
-
+    int passwordcheck=0;
+    int passwordequal=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        passwordchecktext=(TextView)findViewById(R.id.passwordchecktext);
         editTextPassword2=(EditText)findViewById(R.id.editTextPassword2);
+        passwordequaltext=(TextView)findViewById(R.id.passwordequaltext);
         editName=(EditText)findViewById(R.id.editTextName);
         genderradio=(RadioGroup)findViewById(R.id.genderradio);
         birthpicker=(DatePicker)findViewById(R.id.birthpicker);
@@ -75,10 +89,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         validateemailbutton=(Button)findViewById(R.id.validateemailbutton);
         progressDialog = new ProgressDialog(this);
 
-        //사용자가 입력하는 email, password, name, gender, birth를 가져온다.
-        final String email = editTextEmail.getText().toString().trim();
-        final String password = editTextPassword.getText().toString();
-        final String repassword=editTextPassword2.getText().toString();
+        //이메일 형식에 맞는지 체크, 이메일 형식에 맞으면 파란색으로 보임
+        editTextEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                email = editTextEmail.getText().toString().trim();
+                if(email.matches(emailValidation)){
+                    editTextEmail.setTextColor(Color.BLUE);
+                    emailcheck=1;
+                }
+                else{
+                    editTextEmail.setTextColor(Color.BLACK);
+                    emailcheck=0;
+                }
+            }
+        });
+        //비밀번호 형식에 맞는지 체크, 맞으면 올바른 비밀번호라고 알려줌
+        editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                passwordchecktext.setText("영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요\n");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                password = editTextPassword.getText().toString();
+                if(password.matches(passwordValidation)){
+                    passwordchecktext.setText("올바른 비밀번호 형식입니다\n");
+                    passwordcheck=1;
+                }
+                else{
+                    passwordchecktext.setText("영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요\n");
+                    passwordcheck=0;
+                }
+            }
+        });
+        editTextPassword2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                passwordequaltext.setText("비밀번호가 일치하지 않습니다\n");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                repassword=editTextPassword2.getText().toString();
+                if(password.equals(repassword)){
+                    passwordequaltext.setText("비밀번호가 일치합니다\n");
+                    passwordequal=1;
+                }
+                else{
+                    passwordequaltext.setText("비밀번호가 일치하지 않습니다\n");
+                    passwordequal=0;
+                }
+            }
+        });
         final String name=editName.getText().toString().trim();
         String gender=null;
         final String realgender;
@@ -90,17 +172,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final int year=birthpicker.getYear();
         final int month=birthpicker.getMonth()+1;
         final int day=birthpicker.getDayOfMonth();
-        validateemailbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailcheck=checkemail(email);
-            }
-        });
+
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(check_empty(email, password, repassword, name, realgender)){
-                    if(checkpassword(password, repassword)){
+                    if(passwordcheck==1 && passwordequal==1){
                         if(emailcheck==1) {
                             //email과 password가 제대로 입력되어 있다면 계속 진행된다.
                             progressDialog.setMessage("등록중입니다. 기다려 주세요...");
@@ -171,23 +248,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //TODO
             startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
         }
-    }
-    private boolean checkpassword(String password, String repassword){
-        if(password.length()<8||!Pattern.matches("^([a-zA-Z0-9])$", password)){
-            textviewMessage.setText("비밀번호는 영문자, 숫자 포함 8자리 이상입니다.\n");
-            return false;
-        }
-        if(!password.equals(repassword)){
-            textviewMessage.setText("비밀번호가 일치하지 않습니다.\n");
-            return false;
-        }
-        return true;
-    }
-    private int checkemail(String email){
-        if(!Pattern.matches("^([a-zA-Z0-9]+@[a-zA-Z0-9]+)$", email)){
-            textviewMessage.setText("제대로 된 이메일 형식이 아닙니다.\n");
-            return 0;
-        }
-        return 1;
     }
 }
