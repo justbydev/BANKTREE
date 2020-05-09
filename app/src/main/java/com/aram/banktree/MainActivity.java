@@ -151,27 +151,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-        final String name=editName.getText().toString().trim();
-        String gender=null;
-        final String realgender;
-        if(genderradio.getCheckedRadioButtonId()!=-1){
-            RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
-            gender=rd.getText().toString().trim();
-        }
-        realgender=gender;
-        final int year=birthpicker.getYear();
-        final int month=birthpicker.getMonth()+1;
-        final int day=birthpicker.getDayOfMonth();
+
 
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(check_empty(email, password, repassword, name, realgender)){
+                final String name=editName.getText().toString().trim();
+                String gender=null;
+                if(genderradio.getCheckedRadioButtonId()!=-1){
+                    RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
+                    gender=rd.getText().toString().trim();
+                }
+                final int year=birthpicker.getYear();
+                final int month=birthpicker.getMonth()+1;
+                final int day=birthpicker.getDayOfMonth();
+                if(check_empty(email, password, repassword, name, gender)){
                     if(passwordcheck==1 && passwordequal==1){
                         if(emailcheck==1) {
                             //email과 password가 제대로 입력되어 있다면 계속 진행된다.
                             progressDialog.setMessage("등록중입니다. 기다려 주세요...");
                             progressDialog.show();
+                            final String finalGender = gender;
                             firebaseAuth.createUserWithEmailAndPassword(email, password)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 Member member= new Member();
                                                 member.setEmail(email);
                                                 member.setName(name);
-                                                member.setGender(realgender);
+                                                member.setGender(finalGender);
                                                 member.setYear(year);
                                                 member.setMonth(month);
                                                 member.setDay(day);
@@ -209,6 +209,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textviewSingin.setOnClickListener(this);
     }
     private boolean check_empty(String email, String password, String repassword, String name, String gender){
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this, "성명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return false;
@@ -219,10 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(TextUtils.isEmpty(repassword)){
             Toast.makeText(this, "Password를 재입력해 주세요.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if(TextUtils.isEmpty(name)){
-            Toast.makeText(this, "성명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(gender)){
