@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button validateemailbutton;
     TextView textviewSingin;
     TextView textviewMessage;
-    TextView emailerrortext;
     ProgressDialog progressDialog;
     private String email;
     private String password;
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         birthpicker=(DatePicker)findViewById(R.id.birthpicker);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-        emailerrortext=(TextView)findViewById(R.id.emailerrortext);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
         validateemailbutton=(Button)findViewById(R.id.validateemailbutton);
         progressDialog = new ProgressDialog(this);
@@ -94,11 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 email = editTextEmail.getText().toString().trim();
@@ -118,12 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 passwordchecktext.setText("영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요\n");
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 password = editTextPassword.getText().toString();
@@ -142,12 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 passwordequaltext.setText("비밀번호가 일치하지 않습니다\n");
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 repassword=editTextPassword2.getText().toString();
