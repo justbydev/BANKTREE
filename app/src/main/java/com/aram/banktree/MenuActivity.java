@@ -126,6 +126,9 @@ public class MenuActivity extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().show(fragment4).commit();
                         }
                         return true;
+                    case R.id.menu_plus:
+                        startActivity(new Intent(getApplicationContext(), Newbook.class));
+                        return true;
                     default:
                         return false;
                 }
