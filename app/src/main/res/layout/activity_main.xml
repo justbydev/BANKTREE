@@ -5,27 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="2.25"
     tools:context="com.js.firebaseauthentication.MainActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="vertical">
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="3dp"
             android:gravity="center"
             android:text="회원가입"
             android:textColor="@color/colorAccent"
@@ -34,8 +37,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="vertical">
 
         <TextView
@@ -44,44 +47,46 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="이 앱은 회원가입을 해야 정상적으로 사용할 수 있습니다.\n Email로 등록해 주세요." />
+            android:text="이 앱은 회원가입을 해야 정상적으로 사용할 수 있습니다.\n Email로 등록해 주세요."
+            android:textSize="8sp"
+            android:layout_marginBottom="3dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.03"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.15"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:hint="이름을 입력해주세요."
+                android:inputType="textPersonName"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="vertical">
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:hint="이름을 입력해주세요."
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.03"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:gravity="center">
 
         <Button
@@ -97,39 +102,39 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:hint="이메일을 입력해주세요."
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/validateemailbutton"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+
             android:layout_weight="1"
-            android:text="인증" />
+            android:text="인증"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.03"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/emailerror"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="에러메세지 자리" />
+            android:text="에러메세지 자리"
+            android:layout_marginBottom="3dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:orientation="vertical">
 
         <EditText
@@ -138,29 +143,34 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:hint="비밀번호를 입력해주세요."
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="12sp"/>
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/passwordchecktext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요"
-        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_gravity="center_horizontal"/>
+        android:text="영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요"
+        android:textSize="12sp
+" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.03"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="vertical"
+        android:layout_marginBottom="3dp">
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:orientation="vertical">
 
         <EditText
@@ -168,35 +178,31 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="0.1"
             android:hint="비밀번호를 다시 입력해주세요."
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="12sp"/>
     </LinearLayout>
+
     <TextView
         android:id="@+id/passwordequaltext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호가 일치하지 않습니다"
-        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_gravity="center_horizontal"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.03"
-        android:orientation="vertical">
-
-    </LinearLayout>
+        android:text="비밀번호가 일치하지 않습니다"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.1"
             android:orientation="vertical">
 
             <RadioGroup
@@ -204,7 +210,6 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -212,14 +217,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="남성" />
+                    android:text="남성"
+                    android:textSize="12sp"/>
 
                 <RadioButton
                     android:id="@+id/radiofemale"
-                    android:layout_width="match_parent"
+                    android:layout_width="126dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="여성" />
+                    android:text="여성"
+                    android:textSize="12sp"/>
             </RadioGroup>
 
         </LinearLayout>
@@ -228,15 +235,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.95"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="2"
+            android:layout_weight="0.7"
+            android:gravity="center_vertical"
             android:text="생년월일"></TextView>
 
         <DatePicker
@@ -244,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
+            android:layout_weight="0.3"
             android:calendarViewShown="false"
             android:datePickerMode="spinner" />
 
@@ -252,8 +261,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:orientation="vertical">
 
         <Button
@@ -267,33 +276,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewSignin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="회원이시면 여기에서 로그인 해주세요."
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="0.3
+"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textviewMessage"
-            android:layout_width="77dp"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 
-</LinearLayout>
+</LinearLayout></LinearLayout>
