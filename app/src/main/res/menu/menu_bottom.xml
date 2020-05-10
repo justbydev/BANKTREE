@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_cook"
-        android:title="요리사"
-        android:enabled="true"
-        app:showAsAction="always"></item>
-    <item
-        android:id="@+id/menu_user"
-        android:title="소비자"
-        android:enabled="true"
-        app:showAsAction="always"></item>
-    <item
         android:id="@+id/menu_home"
         android:title="홈"
+        android:enabled="true"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/menu_mentor"
+        android:title="멘토링"
+        android:enabled="true"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/menu_plus"
+        android:title="추가"
         android:enabled="true"
         app:showAsAction="always"></item>
     <item

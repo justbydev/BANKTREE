@@ -1,42 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.aram.banktree.Fragment1">
-    <Spinner
-        android:id="@+id/filter_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:entries="@array/filter"
-        />
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/scroll_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ScrollView
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/scroll_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/edit_button"
-            android:layout_width="51dp"
-            android:layout_height="67dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="5sp"
-            android:background="@drawable/pencil_icon"></Button>
-        <!--scrollview 안에는 기본적으로 한가지의 widget만 넣을 수 있다. 그렇기에 안에 linearlayout을 일단 넣어놓고 그 안에 쌓아야 한다-->
-    </RelativeLayout>
-
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="인기"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp">
+        </TextView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:layout_margin="10sp">
+        </HorizontalScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신규"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp">
+        </TextView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:layout_margin="10sp">
+        </HorizontalScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10sp">
+            <Button
+                android:id="@+id/selfcare_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자기 관리">
+            </Button>
+            <Button
+                android:id="@+id/employ_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="취업/진학">
+            </Button>
+            <Button
+                android:id="@+id/life_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일상">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10sp">
+            <Button
+                android:id="@+id/relation_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인간 관계">
+            </Button>
+            <Button
+                android:id="@+id/activity_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대외활동/창업">
+            </Button>
+        </LinearLayout>
+        <GridLayout
+            android:id="@+id/random_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:columnCount="3"
+            android:rowCount="1">
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>
+    <!--scrollview 안에는 기본적으로 한가지의 widget만 넣을 수 있다. 그렇기에 안에 linearlayout을 일단 넣어놓고 그 안에 쌓아야 한다-->
