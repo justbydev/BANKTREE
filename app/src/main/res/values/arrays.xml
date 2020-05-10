@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="filter">
-        <item>필터 없음</item>
-        <item>거리순</item>
-        <item>추천순</item>
-        <item>가격순</item>
-    </string-array>
-</resources>
