@@ -4,9 +4,11 @@ import android.app.ProgressDialog;//로딩 시 메시지 뜨도록
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aram.banktree.R;
@@ -25,8 +28,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -58,8 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String emailValidation="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     String passwordValidation="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&]).{8,}.$";
     int emailcheck=0;
+    int emailequal=0;
     int passwordcheck=0;
     int passwordequal=0;
+    int emailvalidatebutton=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +113,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(email.matches(emailValidation)){
                     editTextEmail.setTextColor(Color.BLUE);
                     emailcheck=1;
+                    emailequal=0;
+                    emailvalidatebutton=0;
                 }
                 else{
                     editTextEmail.setTextColor(Color.BLACK);
                     emailcheck=0;
+                    emailvalidatebutton=0;
                 }
             }
         });
@@ -118,7 +130,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     emailerror.setText("이메일을 입력하세요\n");
                 }
                 else{
-                    emailerror.setText("인증 완료\n");
+                    DatabaseReference checkequal=FirebaseDatabase.getInstance().getReference("Memberemail");
+                    checkequal.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                if(snapshot.getValue()!=null){
+                                    if(snapshot.getValue().equals(email)){
+                                        emailequal=1;
+                                    }
+                                    System.out.println(snapshot.getValue());
+                                    if(emailequal==1){
+                                        emailerror.setText("이미 가입된 이메일입니다\n");
+                                        break;
+                                    }
+                                }
+                            }
+                            if(emailequal==0){
+                                emailerror.setText("인증 완료\n");
+                                emailvalidatebutton=1;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         });
@@ -181,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 final int day=birthpicker.getDayOfMonth();
                 if(check_empty(email, password, repassword, name, gender)){
                     if(passwordcheck==1 && passwordequal==1){
-                        if(emailcheck==1) {
+                        if(emailcheck==1 && emailequal==0 && emailvalidatebutton==1) {
                             //email과 password가 제대로 입력되어 있다면 계속 진행된다.
                             progressDialog.setMessage("등록중입니다. 기다려 주세요...");
                             progressDialog.show();
@@ -192,16 +230,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if(task.isSuccessful()){
                                                 DatabaseReference memberreference=FirebaseDatabase.getInstance().getReference("Member");
+                                                DatabaseReference emailreference=FirebaseDatabase.getInstance().getReference("Memberemail");
                                                 Member member= new Member();
+                                                Memberemail EM=new Memberemail();
                                                 member.setEmail(email);
                                                 member.setName(name);
                                                 member.setGender(finalGender);
                                                 member.setYear(year);
                                                 member.setMonth(month);
                                                 member.setDay(day);
-                                                memberreference.child("mem").push().setValue(member);
+                                                EM.setEmail(email);
+                                                memberreference.push().setValue(member);
+                                                emailreference.push().setValue(email);
+                                                firebaseAuth.signOut();
                                                 finish();
-                                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                             }
                                             else{
                                                 textviewMessage.setText("이미 가입된 이메일입니다\n");
@@ -213,6 +256,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else{
                             textviewMessage.setText("이메일 인증을 받으셔야 합니다.\n");
                         }
+                    }
+                    else{
+                        textviewMessage.setText("올바른 비밀번호를 입력해 주세요\n");
                     }
                 }
             }

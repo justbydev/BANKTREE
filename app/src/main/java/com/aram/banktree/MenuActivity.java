@@ -1,13 +1,19 @@
 package com.aram.banktree;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aram.banktree.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuActivity extends AppCompatActivity {
     Fragment1 fragment1;
@@ -15,13 +21,30 @@ public class MenuActivity extends AppCompatActivity {
     Fragment3 fragment3;
     Fragment4 fragment4;
     Fragment5 fragment5;
-
+    TextView logbutton;
     BottomNavigationView bottomNavigationView;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
         bottomNavigationView=findViewById(R.id.bottom_navigation);
+        logbutton=findViewById(R.id.logbutton);
+        firebaseAuth=FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser()!=null){
+            logbutton.setText("로그아웃");
+        }
+        else{
+            logbutton.setText("로그인");
+        }
+        logbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               firebaseAuth.signOut();
+               finish();
+               startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
         bottomNavigationView.getMenu().getItem(2).setChecked(true);//처음 작동시킬 때 홈 화면 탭 버튼이 체크되도록
         fragment3=new Fragment3();
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();//처음 작동시킬 때 홈 화면 fragment가 보이도록
