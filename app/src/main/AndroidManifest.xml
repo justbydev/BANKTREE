@@ -20,8 +20,9 @@
         </activity>
         <activity android:name="com.aram.banktree.ProfileActivity"/>
         <activity android:name="com.aram.banktree.FindActivity" />
-        <activity android:name="com.aram.banktree.MenuActivity"/>
         <activity android:name="com.aram.banktree.MainActivity"/>
+        <activity android:name="com.aram.banktree.MenuActivity"/>
+        <activity android:name="com.aram.banktree.Newbook"/>
 
     </application>
 
