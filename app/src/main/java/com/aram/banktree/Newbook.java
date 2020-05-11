@@ -30,6 +30,7 @@ public class Newbook extends AppCompatActivity {
     Button share;
     EditText book_title;
     ImageView book_content;
+    EditText content_write;
     int contentdefaultcolor;
     int costset=0;
     int commutset=0;
@@ -49,6 +50,7 @@ public class Newbook extends AppCompatActivity {
         share=(Button)findViewById(R.id.share);
         book_title=(EditText)findViewById(R.id.book_title);
         book_content=(ImageView)findViewById(R.id.book_content);
+        content_write=(EditText)findViewById(R.id.content_write);
 
         contentdefaultcolor= ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
         cancel.setOnClickListener(new View.OnClickListener() {
