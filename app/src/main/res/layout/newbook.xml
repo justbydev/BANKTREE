@@ -24,14 +24,14 @@
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
-    <EditText
+    <ImageView
         android:id="@+id/book_content"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:background="@color/design_default_color_secondary_variant"
-        android:layout_weight="0.8"></EditText>
+        android:layout_weight="0.8"></ImageView>
     <LinearLayout
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
