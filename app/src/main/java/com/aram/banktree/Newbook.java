@@ -2,13 +2,16 @@ package com.aram.banktree;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,8 @@ public class Newbook extends AppCompatActivity {
     Button cancel;
     Button share;
     EditText book_title;
-    EditText book_content;
+    ImageView book_content;
+    EditText content_write;
     int contentdefaultcolor;
     int costset=0;
     int commutset=0;
@@ -45,7 +49,8 @@ public class Newbook extends AppCompatActivity {
         cancel=(Button)findViewById(R.id.cancel);
         share=(Button)findViewById(R.id.share);
         book_title=(EditText)findViewById(R.id.book_title);
-        book_content=(EditText)findViewById(R.id.book_content);
+        book_content=(ImageView)findViewById(R.id.book_content);
+        content_write=(EditText)findViewById(R.id.content_write);
 
         contentdefaultcolor= ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -121,9 +126,27 @@ public class Newbook extends AppCompatActivity {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 contentdefaultcolor=color;
+                book_content.setImageBitmap(null);
                 book_content.setBackgroundColor(contentdefaultcolor);
             }
         });
         colorPicker.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE_CODE){
+            if(resultCode==Activity.RESULT_OK){
+                try {
+                    Uri image=data.getData();
+                    Bitmap bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(), image);
+                    book_content.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_light));
+                    book_content.setImageBitmap(bitmap);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
