@@ -1,9 +1,11 @@
 package com.aram.banktree;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ public class Newbook extends AppCompatActivity {
     int costset=0;
     int commutset=0;
     int mentoragree=0;
+    int REQUEST_IMAGE_CODE=1001;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +55,22 @@ public class Newbook extends AppCompatActivity {
                 finish();
             }
         });
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imageintent=new Intent(Intent.ACTION_PICK);
+                imageintent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                imageintent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(imageintent, REQUEST_IMAGE_CODE);
+            }
+        });
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openColorPicker();
             }
         });
+
         costset_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,5 +126,4 @@ public class Newbook extends AppCompatActivity {
         });
         colorPicker.show();
     }
-
 }
