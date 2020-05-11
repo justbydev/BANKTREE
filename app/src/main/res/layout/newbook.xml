@@ -65,12 +65,15 @@
             android:id="@+id/costset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="유/무료 설정"></Button>
+            android:text="유/무료 설정"
+            android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
         <Button
             android:id="@+id/commuteset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1대1 소통가능 설정"></Button>
+            android:text="1대1 소통가능 설정"
+            android:layout_marginLeft="10sp"
+            android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
     </LinearLayout>
     <Button
         android:id="@+id/mentoragree_button"
@@ -79,7 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="멘토링 설정"
-        android:layout_weight="0.03"></Button>
+        android:layout_weight="0.03"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

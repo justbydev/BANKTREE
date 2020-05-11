@@ -26,6 +26,9 @@ public class Newbook extends AppCompatActivity {
     EditText book_title;
     EditText book_content;
     int contentdefaultcolor;
+    int costset=0;
+    int commutset=0;
+    int mentoragree=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,45 @@ public class Newbook extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openColorPicker();
+            }
+        });
+        costset_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(costset==0){
+                    costset=1;
+                    costset_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+                }
+                else if(costset==1){
+                    costset=0;
+                    costset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+                }
+            }
+        });
+        commuteset_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(commutset==0){
+                    commutset=1;
+                    commuteset_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+                }
+                else if(commutset==1){
+                    commutset=0;
+                    commuteset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+                }
+            }
+        });
+        mentoragree_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mentoragree==0){
+                    mentoragree=1;
+                    mentoragree_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+                }
+                else if(mentoragree==1){
+                    mentoragree=0;
+                    mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+                }
             }
         });
     }
