@@ -39,8 +39,7 @@
             android:id="@+id/content_write"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
-            android:maxHeight=""></EditText>
+            android:background="@null"></EditText>
     </RelativeLayout>
     <LinearLayout
         android:layout_marginLeft="20sp"
