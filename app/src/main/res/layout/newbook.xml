@@ -30,7 +30,7 @@
         android:layout_height="0sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:background="#E3CEF6"
+        android:background="@color/design_default_color_secondary_variant"
         android:layout_weight="0.8"></EditText>
     <LinearLayout
         android:layout_marginLeft="20sp"
