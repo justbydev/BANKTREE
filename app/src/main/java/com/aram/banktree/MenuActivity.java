@@ -1,6 +1,7 @@
 package com.aram.banktree;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,10 +24,14 @@ public class MenuActivity extends AppCompatActivity {
     TextView logbutton;
     BottomNavigationView bottomNavigationView;
     FirebaseAuth firebaseAuth;
+    public int which;
+    public static Context menucontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
+        which=0;
+        menucontext=this;
         bottomNavigationView=findViewById(R.id.bottom_navigation);
         logbutton=findViewById(R.id.logbutton);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -130,10 +135,30 @@ public class MenuActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), Newbook.class));
                         return true;
                     default:
-                        return false;
+                        return true;
                 }
             }
         });
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(which==0){
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
     }
 }
