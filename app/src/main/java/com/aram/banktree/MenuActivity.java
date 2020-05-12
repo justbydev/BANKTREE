@@ -132,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
                         }
                         return true;
                     case R.id.menu_plus:
-                        startActivity(new Intent(getApplicationContext(), Newbook.class));
+                        startActivity(new Intent(MenuActivity.this, Newbook.class));
                         return true;
                     default:
                         return true;
