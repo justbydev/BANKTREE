@@ -28,21 +28,6 @@ public class MenuActivity extends AppCompatActivity {
     public static Context menucontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(which==0){
-            bottomNavigationView.getMenu().getItem(0).setChecked(true);
-            if(fragment1!=null){
-                getSupportFragmentManager().beginTransaction().show(fragment1).commit();
-            }
-            if(fragment2!=null){
-                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
-            }
-            if(fragment3!=null){
-                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
-            }
-            if(fragment4!=null){
-                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
-            }
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
         which=0;
@@ -157,4 +142,23 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(which==0){
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
+    }
 }
