@@ -24,7 +24,7 @@ public class MenuActivity extends AppCompatActivity {
     TextView logbutton;
     BottomNavigationView bottomNavigationView;
     FirebaseAuth firebaseAuth;
-    public int which;
+    public int which=-1;
     public static Context menucontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +143,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onPostResume() {
+        super.onPostResume();
         if(which==0){
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){
