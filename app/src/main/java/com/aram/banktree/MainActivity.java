@@ -1,7 +1,10 @@
 package com.aram.banktree;
 
+import android.Manifest;
 import android.app.ProgressDialog;//로딩 시 메시지 뜨도록
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String email;
     private String password;
     private String repassword;
+
     //define firebase object
     FirebaseAuth firebaseAuth;
     String emailValidation="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
