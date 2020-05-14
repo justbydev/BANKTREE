@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookInfo">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <LinearLayout
@@ -17,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:weightSum="1">
 
                 <ImageView
@@ -70,9 +74,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
                         android:gravity="right"
-                        android:weightSum="1"
-                        android:layout_marginTop="10dp">
+                        android:weightSum="1">
 
 
                         <Button
@@ -89,15 +93,161 @@
                             android:layout_weight="0.1"
                             android:text="구매" />
                     </LinearLayout>
-"
+                    "
 
 
                 </LinearLayout>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="0.4">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/profilepicture"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="20dp"
+                            android:text="OOO 작가님"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp"
+                            android:text="이 작가는 이런사람입니다. 여기에는 자기 소개가 들어갑니다. 블라블라블라블라블라블라블라블라블라블라"
+                            android:textSize="20dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.3"
+                        android:gravity="center_horizontal">
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="작가님 페이지로"
+
+                            android:layout_marginRight="5dp"/>
+
+                        <Button
+                            android:id="@+id/button5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="구독하기"
+                           />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.2">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="책 내용 요약, 광고가 이곳에 들어갑니다~~\n
+언어의 온도 이기주 작가가 직접 낭독한 음원과 감성을 담아 직접 찍은 사진, 영상을 수록한 멀티eBook, 교보문고 단독 출간!
+멀티eBook 독자들에게 전하는 특별한 메시지와, 오직 멀티eBook에서만 볼 수 있는 짧은 글도 수록!
+※본 멀티eBook은 태블릿 PC와 스마트폰에서 가장 최적화된 형태로 감상하실 수 있습니다." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4"
+                    android:weightSum="1"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/button6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="무/유료 여부" />
+
+                    <Button
+                        android:id="@+id/button7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="1대1 소통 여부" />
+
+                    <Button
+                        android:id="@+id/button8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="멘토링 여부" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4"
+                    android:weightSum="1"
+                    android:layout_gravity="right"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/button9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="그만보기" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>
-
