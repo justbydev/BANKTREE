@@ -3,6 +3,7 @@ package com.aram.banktree;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,8 +40,10 @@ public class Newbook extends AppCompatActivity {
     EditText book_title;
     ImageView book_content;
     EditText content_write;
+    public static Context newbookcontext;
     int contentdefaultcolor;
-    int costset=0;
+    public int costset=0;
+    public String cst=null;
     int commutset=0;
     int mentoragree=0;
     static final int REQUEST_IMAGE_CODE=1001;
@@ -49,6 +52,7 @@ public class Newbook extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newbook);
+        newbookcontext=this;
         color=(Button)findViewById(R.id.color);
         image=(Button)findViewById(R.id.image);
         picture=(Button)findViewById(R.id.picture);
@@ -71,72 +75,12 @@ public class Newbook extends AppCompatActivity {
         });
         image.setOnClickListener(buttonClickListener);
         picture.setOnClickListener(buttonClickListener);
+        color.setOnClickListener(buttonClickListener);
+        costset_button.setOnClickListener(buttonClickListener);
+        commuteset_button.setOnClickListener(buttonClickListener);
+        mentoragree_button.setOnClickListener(buttonClickListener);
 
-
-
-        color.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openColorPicker();
-            }
-        });
-
-        costset_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(costset==0){
-                    costset=1;
-                    costset_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
-                }
-                else if(costset==1){
-                    costset=0;
-                    costset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
-                }
-            }
-        });
-        commuteset_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(commutset==0){
-                    commutset=1;
-                    commuteset_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
-                }
-                else if(commutset==1){
-                    commutset=0;
-                    commuteset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
-                }
-            }
-        });
-        mentoragree_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mentoragree==0){
-                    mentoragree=1;
-                    mentoragree_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
-                }
-                else if(mentoragree==1){
-                    mentoragree=0;
-                    mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
-                }
-            }
-        });
     }//end of oncreate
-    public void openColorPicker(){
-        AmbilWarnaDialog colorPicker=new AmbilWarnaDialog(this, contentdefaultcolor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-
-            }
-
-            @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                contentdefaultcolor=color;
-                book_content.setImageBitmap(null);
-                book_content.setBackgroundColor(contentdefaultcolor);
-            }
-        });
-        colorPicker.show();
-    }
 
     private View.OnClickListener buttonClickListener=new View.OnClickListener() {
         @Override
@@ -159,12 +103,62 @@ public class Newbook extends AppCompatActivity {
                     }
                     break;
                 case R.id.picture:
+                    if(Build.VERSION.SDK_INT>=23){
+                        int permissioncamera=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.CAMERA);
+                        if(permissioncamera==PackageManager.PERMISSION_DENIED){
+                            ActivityCompat.requestPermissions(Newbook.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+                        }
+                    }
                     break;
+                case R.id.color:
+                    openColorPicker();
+                    return;
+                case R.id.costset_button:
+                    CostCustomDialog customDialog=new CostCustomDialog(Newbook.this);
+                    customDialog.callFunction(costset_button);
+                    return;
+                case R.id.commuteset_button:
+                    if(commutset==0){
+                        commutset=1;
+                        commuteset_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+                    }
+                    else if(commutset==1){
+                        commutset=0;
+                        commuteset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+                    }
+                    return;
+                case R.id.mentoragree_button:
+                    if(mentoragree==0){
+                        mentoragree=1;
+                        mentoragree_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+                    }
+                    else if(mentoragree==1){
+                        mentoragree=0;
+                        mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+                    }
+                    return;
                 default:
                     break;
             }
         }
     };
+
+    public void openColorPicker(){
+        AmbilWarnaDialog colorPicker=new AmbilWarnaDialog(this, contentdefaultcolor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                contentdefaultcolor=color;
+                book_content.setImageBitmap(null);
+                book_content.setBackgroundColor(contentdefaultcolor);
+            }
+        });
+        colorPicker.show();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -206,6 +200,26 @@ public class Newbook extends AppCompatActivity {
                 }
                 break;
             case REQUEST_CAMERA_CODE:
+                String permission=permissions[0];
+                int grantResult=grantResults[0];
+                int cameraflag=0;
+                if(permission.equals(Manifest.permission.CAMERA)){
+                    if(grantResult==PackageManager.PERMISSION_GRANTED){
+                        cameraflag=1;
+                    }
+                }
+                if (cameraflag == 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Newbook.this);
+                    builder.setTitle("알림");
+                    builder.setMessage("[설정]->[권한]에서\n권한을 허용해주세요.\n");
+                    builder.setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    builder.create().show();
+                }
                 return;
             default:
                 break;
