@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -37,6 +40,7 @@ public class Newbook extends AppCompatActivity {
     Button mentoragree_button;
     Button cancel;
     Button share;
+    Button page_add;
     EditText book_title;
     ImageView book_content;
     EditText content_write;
@@ -48,6 +52,14 @@ public class Newbook extends AppCompatActivity {
     int mentoragree=0;
     static final int REQUEST_IMAGE_CODE=1001;
     static final int REQUEST_CAMERA_CODE=1002;
+
+    /*ViewPager vp;
+    contentpagerAdapter mAdapter;
+    Anotherpage anp;
+    Viewpagerbase bp;
+    int nowpage=0;*/
+    Viewpagerbase viewpagerbase;
+    int nowpage=2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +73,17 @@ public class Newbook extends AppCompatActivity {
         mentoragree_button=(Button)findViewById(R.id.mentoragree_button);
         cancel=(Button)findViewById(R.id.cancel);
         share=(Button)findViewById(R.id.share);
+        page_add=(Button)findViewById(R.id.page_add);
         book_title=(EditText)findViewById(R.id.book_title);
         book_content=(ImageView)findViewById(R.id.book_content);
         content_write=(EditText)findViewById(R.id.content_write);
+
+        viewpagerbase=(Viewpagerbase)this.getSupportFragmentManager().findFragmentById(R.id.viewpagerbase);
+        //vp=(ViewPager)findViewById(R.id.viewpager_content);
+        //mAdapter=new contentpagerAdapter(getSupportFragmentManager());
+        //vp.setAdapter(mAdapter);
+        //Viewpagerbase fragment=(Viewpagerbase) mAdapter.getfragment(0);
+        //fragment.setpagenumber(1);
 
         contentdefaultcolor= ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +96,7 @@ public class Newbook extends AppCompatActivity {
         image.setOnClickListener(buttonClickListener);
         picture.setOnClickListener(buttonClickListener);
         color.setOnClickListener(buttonClickListener);
+        page_add.setOnClickListener(buttonClickListener);
         costset_button.setOnClickListener(buttonClickListener);
         commuteset_button.setOnClickListener(buttonClickListener);
         mentoragree_button.setOnClickListener(buttonClickListener);
@@ -112,6 +133,15 @@ public class Newbook extends AppCompatActivity {
                     break;
                 case R.id.color:
                     openColorPicker();
+                    return;
+                case R.id.page_add:
+                    if(nowpage>50){
+                        Toast.makeText(Newbook.this, "최대 50페이지까지 가능합니다\n", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        viewpagerbase.addpage(nowpage+"");
+                        nowpage=nowpage+1;
+                    }
                     return;
                 case R.id.costset_button:
                     CostCustomDialog customDialog=new CostCustomDialog(Newbook.this);
@@ -153,8 +183,11 @@ public class Newbook extends AppCompatActivity {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 contentdefaultcolor=color;
-                book_content.setImageBitmap(null);
-                book_content.setBackgroundColor(contentdefaultcolor);
+                viewpagerbase.changecolor(contentdefaultcolor);
+                //Viewpagerbase fragment=(Viewpagerbase) mAdapter.getfragment(1);
+                //fragment.changecolor(contentdefaultcolor);
+                //book_content.setImageBitmap(null);
+                //book_content.setBackgroundColor(contentdefaultcolor);
             }
         });
         colorPicker.show();
@@ -248,4 +281,15 @@ public class Newbook extends AppCompatActivity {
                 break;
         }
     }
+
+    /*public void addPage(){
+        nowpage=nowpage+1;
+        mAdapter.addFragment(new Viewpagerbase());
+        vp.setAdapter(mAdapter);
+        vp.setCurrentItem(nowpage);
+        System.out.println(mAdapter.getCount());
+        Viewpagerbase fragment=(Viewpagerbase) mAdapter.getfragment(mAdapter.getCount()-1);
+        fragment.setpagenumber(nowpage+1);
+
+    }*/
 }
