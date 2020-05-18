@@ -24,23 +24,14 @@
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
-    <RelativeLayout
+    <fragment
+        android:id="@+id/viewpagerbase"
+        android:name="com.aram.banktree.Viewpagerbase"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="0.75"
         android:layout_marginRight="20sp"
-        android:layout_marginLeft="20sp">
-        <ImageView
-            android:id="@+id/book_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/design_default_color_secondary_variant"></ImageView>
-        <EditText
-            android:id="@+id/content_write"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"></EditText>
-    </RelativeLayout>
+        android:layout_marginLeft="20sp"></fragment>
     <LinearLayout
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
@@ -62,6 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="카메라"></Button>
+        <Button
+            android:id="@+id/page_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추가"></Button>
     </LinearLayout>
     <LinearLayout
         android:layout_marginLeft="20sp"

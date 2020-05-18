@@ -20,6 +20,7 @@ import com.aram.banktree.R;
 
 
 public class Fragment1 extends Fragment {
+    public Fragment1(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
