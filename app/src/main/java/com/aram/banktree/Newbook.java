@@ -29,6 +29,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class Newbook extends AppCompatActivity {
@@ -86,13 +93,7 @@ public class Newbook extends AppCompatActivity {
         //fragment.setpagenumber(1);
 
         contentdefaultcolor= ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MenuActivity)MenuActivity.menucontext).which=0;
-                finish();
-            }
-        });
+
         image.setOnClickListener(buttonClickListener);
         picture.setOnClickListener(buttonClickListener);
         color.setOnClickListener(buttonClickListener);
@@ -100,6 +101,8 @@ public class Newbook extends AppCompatActivity {
         costset_button.setOnClickListener(buttonClickListener);
         commuteset_button.setOnClickListener(buttonClickListener);
         mentoragree_button.setOnClickListener(buttonClickListener);
+        cancel.setOnClickListener(buttonClickListener);
+        share.setOnClickListener(buttonClickListener);
 
     }//end of oncreate
 
@@ -166,6 +169,28 @@ public class Newbook extends AppCompatActivity {
                         mentoragree=0;
                         mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
                     }
+                    return;
+                case R.id.cancel:
+                    ((MenuActivity)MenuActivity.menucontext).which=0;
+                    finish();
+                    return;
+                case R.id.share:
+                    DatabaseReference contentreference= FirebaseDatabase.getInstance().getReference("Content");
+                    FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+                    String email=firebaseUser.getEmail();
+                    String title=book_title.getText().toString();
+                    int totalpage=viewpagerbase.gettotalpage();
+                    Bookcontent bookcontent=new Bookcontent(email, totalpage);
+                    bookcontent.setTitle(title);
+                    //bookcontent.color=new int[totalpage];
+                    for(int i=0; i<totalpage; i++){
+                        bookcontent.setContent(viewpagerbase.getcontent(i));
+                        bookcontent.setColor(viewpagerbase.getcolor(i));
+                    }
+                    contentreference.push().setValue(bookcontent);
+                    ((MenuActivity)MenuActivity.menucontext).which=0;
+                    finish();
                     return;
                 default:
                     break;

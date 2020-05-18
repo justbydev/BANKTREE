@@ -1,5 +1,8 @@
 package com.aram.banktree;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,5 +48,14 @@ public class Anotherpage extends Fragment {
             book_content.setImageBitmap(null);
             book_content.setBackgroundColor(color);
         }
+    }
+    public String getcontent(){
+        String content=content_write.getText().toString();
+        return content;
+    }
+    public int getcolor(){
+        ColorDrawable drawable=(ColorDrawable)book_content.getBackground();
+        int color=drawable.getColor();
+        return color;
     }
 }

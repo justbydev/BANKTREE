@@ -47,6 +47,16 @@ public class Viewpagerbase extends Fragment {
         bundle.putInt("color", color);
         anotherpage.setArguments(bundle);
         anotherpage.changecolor();
-
+    }
+    public int gettotalpage(){
+        return adapter.getCount();
+    }
+    public String getcontent(int position){
+        Anotherpage an=(Anotherpage)adapter.getfragment(position);
+        return an.getcontent();
+    }
+    public int getcolor(int position){
+        Anotherpage an=(Anotherpage)adapter.getfragment(position);
+        return an.getcolor();
     }
 }
