@@ -3,7 +3,10 @@ package com.aram.banktree;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,13 +33,17 @@ public class MenuActivity extends AppCompatActivity {
     public String title;
     public String writer;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
+
+        CheckTypesTask task=new CheckTypesTask();
+        task.execute();
+
         which=0;
         menucontext=this;
-        progressDialog=new ProgressDialog(this);
         bottomNavigationView=findViewById(R.id.bottom_navigation);
         logbutton=findViewById(R.id.logbutton);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -54,11 +61,8 @@ public class MenuActivity extends AppCompatActivity {
                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
-        progressDialog.setMessage("로딩중입니다...");
-        progressDialog.show();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);//처음 작동시킬 때 홈 화면 탭 버튼이 체크되도록
         fragment1=new Fragment1();
-        progressDialog.dismiss();
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();//처음 작동시킬 때 홈 화면 fragment가 보이도록
         //getSupportFragmentManager를 통해서 쉽게 fragment를 가져올 수 있다
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {//bottomnavigationview의 selected 리스너
@@ -185,6 +189,34 @@ public class MenuActivity extends AppCompatActivity {
             if(fragment4!=null){
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
+        }
+    }
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void>{
+        ProgressDialog progressDialog=new ProgressDialog(MenuActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("로딩중입니다...");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.dismiss();
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                for(int i=0; i<15; i++){
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }
