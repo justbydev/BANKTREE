@@ -42,9 +42,9 @@ public class Newbook extends AppCompatActivity {
     Button color;
     Button image;
     Button picture;
-    Button costset_button;
+    //Button costset_button;
     Button commuteset_button;
-    Button mentoragree_button;
+    //Button mentoragree_button;
     Button cancel;
     Button share;
     Button page_add;
@@ -75,9 +75,9 @@ public class Newbook extends AppCompatActivity {
         color=(Button)findViewById(R.id.color);
         image=(Button)findViewById(R.id.image);
         picture=(Button)findViewById(R.id.picture);
-        costset_button=(Button)findViewById(R.id.costset_button);
+        //costset_button=(Button)findViewById(R.id.costset_button);
         commuteset_button=(Button)findViewById(R.id.commuteset_button);
-        mentoragree_button=(Button)findViewById(R.id.mentoragree_button);
+        //mentoragree_button=(Button)findViewById(R.id.mentoragree_button);
         cancel=(Button)findViewById(R.id.cancel);
         share=(Button)findViewById(R.id.share);
         page_add=(Button)findViewById(R.id.page_add);
@@ -98,9 +98,9 @@ public class Newbook extends AppCompatActivity {
         picture.setOnClickListener(buttonClickListener);
         color.setOnClickListener(buttonClickListener);
         page_add.setOnClickListener(buttonClickListener);
-        costset_button.setOnClickListener(buttonClickListener);
+        //costset_button.setOnClickListener(buttonClickListener);
         commuteset_button.setOnClickListener(buttonClickListener);
-        mentoragree_button.setOnClickListener(buttonClickListener);
+        //mentoragree_button.setOnClickListener(buttonClickListener);
         cancel.setOnClickListener(buttonClickListener);
         share.setOnClickListener(buttonClickListener);
 
@@ -146,10 +146,10 @@ public class Newbook extends AppCompatActivity {
                         nowpage=nowpage+1;
                     }
                     return;
-                case R.id.costset_button:
+                /*case R.id.costset_button:
                     CostCustomDialog customDialog=new CostCustomDialog(Newbook.this);
                     customDialog.callFunction(costset_button);
-                    return;
+                    return;*/
                 case R.id.commuteset_button:
                     if(commutset==0){
                         commutset=1;
@@ -160,7 +160,7 @@ public class Newbook extends AppCompatActivity {
                         commuteset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
                     }
                     return;
-                case R.id.mentoragree_button:
+                /*case R.id.mentoragree_button:
                     if(mentoragree==0){
                         mentoragree=1;
                         mentoragree_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
@@ -169,7 +169,7 @@ public class Newbook extends AppCompatActivity {
                         mentoragree=0;
                         mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
                     }
-                    return;
+                    return;*/
                 case R.id.cancel:
                     ((MenuActivity)MenuActivity.menucontext).which=0;
                     finish();
@@ -189,7 +189,9 @@ public class Newbook extends AppCompatActivity {
                         bookcontent.setColor(viewpagerbase.getcolor(i));
                     }
                     contentreference.push().setValue(bookcontent);
-                    ((MenuActivity)MenuActivity.menucontext).which=0;
+                    ((MenuActivity)MenuActivity.menucontext).title=title;
+                    ((MenuActivity)MenuActivity.menucontext).writer=email;
+                    ((MenuActivity)MenuActivity.menucontext).which=1;
                     finish();
                     return;
                 default:

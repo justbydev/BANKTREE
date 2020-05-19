@@ -53,11 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="카메라"></Button>
-        <Button
-            android:id="@+id/page_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="추가"></Button>
+
     </LinearLayout>
     <LinearLayout
         android:layout_marginLeft="20sp"
@@ -67,28 +63,19 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.01">
         <Button
-            android:id="@+id/costset_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="가격 설정"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
-        <Button
             android:id="@+id/commuteset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1대1 소통가능 설정"
+            android:text="소통가능 설정"
             android:layout_marginLeft="10sp"
             android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
+        <Button
+            android:id="@+id/page_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글추가"></Button>
     </LinearLayout>
-    <Button
-        android:id="@+id/mentoragree_button"
-        android:layout_marginRight="20sp"
-        android:layout_marginLeft="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="멘토링 설정"
-        android:layout_weight="0.03"
-        android:background="@color/common_google_signin_btn_text_dark_disabled"></Button>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
