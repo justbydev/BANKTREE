@@ -16,7 +16,8 @@
         </TextView>
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="200sp">
+            android:layout_height="200sp"
+            >
             <LinearLayout
                 android:id="@+id/new_book"
                 android:layout_width="wrap_content"
