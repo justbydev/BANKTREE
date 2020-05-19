@@ -26,6 +26,8 @@ public class MenuActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     public int which=-1;
     public static Context menucontext;
+    public String title;
+    public String writer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +148,24 @@ public class MenuActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         if(which==0){
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
+        else if(which==1){
+            if(fragment1!=null){
+                fragment1.addnewbook(title, writer);
+            }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){
                 getSupportFragmentManager().beginTransaction().show(fragment1).commit();
