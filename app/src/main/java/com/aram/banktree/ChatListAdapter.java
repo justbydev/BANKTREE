@@ -34,7 +34,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     int pos=getAdapterPosition();
                     if(pos!=RecyclerView.NO_POSITION){
                         Intent intent=new Intent(context, EachChat.class);
-                        intent.putExtra("me", mList.get(pos).getNickname());
+                        intent.putExtra("want", mList.get(pos).getNickname());
                         context.startActivity(intent);
                     }
                 }
@@ -45,7 +45,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     int pos=getAdapterPosition();
                     if(pos!=RecyclerView.NO_POSITION){
                         Intent intent=new Intent(context, EachChat.class);
-                        intent.putExtra("me", mList.get(pos).getNickname());
+                        intent.putExtra("want", mList.get(pos).getNickname());
                         context.startActivity(intent);
                     }
                 }

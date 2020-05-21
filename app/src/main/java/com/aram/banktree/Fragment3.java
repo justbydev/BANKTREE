@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -87,7 +88,10 @@ public class Fragment3 extends Fragment {
             chatListAdapter.notifyItemInserted(0);
         }
         else{
-
+            ((MenuActivity) MenuActivity.menucontext).which=2;
+            Intent intent=new Intent(getContext(), EachChat.class);
+            intent.putExtra("want", want);
+            startActivity(intent);
         }
     }
 }
