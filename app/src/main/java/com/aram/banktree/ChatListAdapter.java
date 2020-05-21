@@ -43,4 +43,15 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return mList==null? 0:mList.size();
     }
+
+    public int getwantposition(String want){
+        int position=-1;
+        for(int i=0; i<mList.size(); i++){
+            if(mList.get(i).getNickname().equals(want)){
+                position=i;
+                return position;
+            }
+        }
+        return position;
+    }
 }
