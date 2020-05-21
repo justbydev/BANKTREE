@@ -1,5 +1,6 @@
 package com.aram.banktree;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,9 +79,12 @@ public class Fragment3 extends Fragment {
         //DatabaseReference myRef=firebaseDatabase.getReference("chat");
         int position=chatListAdapter.getwantposition(want);
         if(position==-1){
+            String temp=me.replace('.', '-');
             int size=chatListAdapter.getItemCount();
-            mArrayList.add(new ChatListData(want));
-            chatListAdapter.notifyItemInserted(size);
+            myRef=firebaseDatabase.getReference("Chatlist").child(temp);
+            myRef.push().setValue(want);
+            mArrayList.add(0, new ChatListData(want));
+            chatListAdapter.notifyItemInserted(0);
         }
         else{
 
