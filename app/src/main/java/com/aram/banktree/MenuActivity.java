@@ -219,4 +219,23 @@ public class MenuActivity extends AppCompatActivity {
             return null;
         }
     }
+    public void changechat(){
+        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+        if(fragment3==null){
+            fragment3=new Fragment3();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
+        }
+        if(fragment1!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
+        }
+        if(fragment2!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+        }
+        if(fragment3!=null){
+            getSupportFragmentManager().beginTransaction().show(fragment3).commit();
+        }
+        if(fragment4!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+        }
+    }
 }

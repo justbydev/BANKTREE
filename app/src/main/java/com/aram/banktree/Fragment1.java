@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,9 +22,12 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aram.banktree.R;
 import com.google.api.Distribution;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,10 +97,13 @@ public class Fragment1 extends Fragment {
         View childview2=getLayoutInflater().inflate(R.layout.randombookcover, random_book, false);
         TextView childwriter=(TextView)childview.findViewById(R.id.writer);
         TextView childtitle=(TextView)childview.findViewById(R.id.title);
+        Button childbutton=(Button)childview.findViewById(R.id.chatbutton);//버튼 태그 설정 위한 것
         TextView childwriter2=(TextView)childview2.findViewById(R.id.writer);
         TextView childtitle2=(TextView)childview2.findViewById(R.id.title);
         childwriter.setText(writer);
         childtitle.setText("제목: "+title);
+        childbutton.setTag(writer);//버튼 태그를 writer 아이디로 설정, 일종의 꼼수
+        childbutton.setOnClickListener(buttonClickListener);
         childwriter2.setText(writer);
         childtitle2.setText("제목: "+title);
         new_book.addView(childview);
@@ -107,4 +114,28 @@ public class Fragment1 extends Fragment {
         LayoutInflater gridinflater=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         gridinflater.inflate(R.layout.book_cover, random_book, true);*/
     }
+    private View.OnClickListener buttonClickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id=v.getId();
+            switch(id){
+                case R.id.chatbutton:
+                    String want=v.getTag().toString();
+                    FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+                    String me=firebaseUser.getEmail();
+                    if(want.equals(me)){
+                        Toast.makeText(getContext(), "내가 쓴 글입니다", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Fragment3 fragment3=new Fragment3();
+                        ((MenuActivity)MenuActivity.menucontext).changechat();
+                        fragment3.settingchat(want, me);
+                    }
+                    return;
+                default:
+                    return;
+            }
+        }
+    };
 }
