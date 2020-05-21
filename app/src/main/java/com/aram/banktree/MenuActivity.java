@@ -219,7 +219,7 @@ public class MenuActivity extends AppCompatActivity {
             return null;
         }
     }
-    public void changechat(){
+    public void changechat(String want, String me){
         bottomNavigationView.getMenu().getItem(3).setChecked(true);
         if(fragment3==null){
             fragment3=new Fragment3();
@@ -237,5 +237,6 @@ public class MenuActivity extends AppCompatActivity {
         if(fragment4!=null){
             getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
         }
+        fragment3.settingchat(want, me);
     }
 }

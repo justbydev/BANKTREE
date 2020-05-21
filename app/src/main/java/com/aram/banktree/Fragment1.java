@@ -128,9 +128,7 @@ public class Fragment1 extends Fragment {
                         Toast.makeText(getContext(), "내가 쓴 글입니다", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Fragment3 fragment3=new Fragment3();
-                        ((MenuActivity)MenuActivity.menucontext).changechat();
-                        fragment3.settingchat(want, me);
+                        ((MenuActivity)MenuActivity.menucontext).changechat(want, me);
                     }
                     return;
                 default:

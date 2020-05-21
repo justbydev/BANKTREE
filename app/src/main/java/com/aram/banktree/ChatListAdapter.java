@@ -1,8 +1,10 @@
 package com.aram.banktree;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +19,20 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     public static class ChatListViewHolder extends RecyclerView.ViewHolder{
         TextView nickname;
+        LinearLayout chatlayout;
         public ChatListViewHolder(@NonNull View itemView) {
             super(itemView);
             nickname=(TextView)itemView.findViewById(R.id.nickname);
+            chatlayout=(LinearLayout)itemView.findViewById(R.id.chatlayout);
+            chatlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos=getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION){
+
+                    }
+                }
+            });
         }
     }
 
@@ -42,5 +55,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return mList==null? 0:mList.size();
+    }
+
+    public int getwantposition(String want){
+        int position=-1;
+        for(int i=0; i<mList.size(); i++){
+            if(mList.get(i).getNickname().equals(want)){
+                position=i;
+                return position;
+            }
+        }
+        return position;
     }
 }
