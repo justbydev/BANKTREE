@@ -63,7 +63,7 @@ public class Fragment3 extends Fragment {
 
                 layoutManager=new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(layoutManager);
-                chatListAdapter=new ChatListAdapter(mArrayList);
+                chatListAdapter=new ChatListAdapter(mArrayList, getContext());
                 recyclerView.setAdapter(chatListAdapter);
             }
 

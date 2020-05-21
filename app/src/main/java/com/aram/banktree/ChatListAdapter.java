@@ -1,5 +1,6 @@
 package com.aram.banktree;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<ChatListData> mList;
-    ChatListAdapter(ArrayList<ChatListData> mList){
+
+    private static ArrayList<ChatListData> mList;
+    private static Context context;
+    ChatListAdapter(ArrayList<ChatListData> mList, Context context){
         this.mList=mList;
+        this.context=context;
     }
     public static class ChatListViewHolder extends RecyclerView.ViewHolder{
         TextView nickname;
@@ -29,7 +33,20 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View v) {
                     int pos=getAdapterPosition();
                     if(pos!=RecyclerView.NO_POSITION){
-
+                        Intent intent=new Intent(context, EachChat.class);
+                        intent.putExtra("me", mList.get(pos).getNickname());
+                        context.startActivity(intent);
+                    }
+                }
+            });
+            nickname.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos=getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION){
+                        Intent intent=new Intent(context, EachChat.class);
+                        intent.putExtra("me", mList.get(pos).getNickname());
+                        context.startActivity(intent);
                     }
                 }
             });
