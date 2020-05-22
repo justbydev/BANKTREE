@@ -64,6 +64,8 @@ public class MenuActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(0).setChecked(true);//처음 작동시킬 때 홈 화면 탭 버튼이 체크되도록
         fragment1=new Fragment1();
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();//처음 작동시킬 때 홈 화면 fragment가 보이도록
+        fragment3=new Fragment3();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
         //getSupportFragmentManager를 통해서 쉽게 fragment를 가져올 수 있다
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {//bottomnavigationview의 selected 리스너
             @Override
@@ -190,6 +192,28 @@ public class MenuActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
         }
+<<<<<<< HEAD
+=======
+        else if(which==2){
+            if(fragment3==null){
+                fragment3=new Fragment3();
+                getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
+            }
+            bottomNavigationView.getMenu().getItem(3).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
+>>>>>>> master
     }
     private class CheckTypesTask extends AsyncTask<Void, Void, Void>{
         ProgressDialog progressDialog=new ProgressDialog(MenuActivity.this);
@@ -219,13 +243,22 @@ public class MenuActivity extends AppCompatActivity {
             return null;
         }
     }
+<<<<<<< HEAD
     public void changechat(){
         bottomNavigationView.getMenu().getItem(3).setChecked(true);
+=======
+    public void changechat(String want, String me){
+        //bottomNavigationView.getMenu().getItem(3).setChecked(true);
+>>>>>>> master
         if(fragment3==null){
             fragment3=new Fragment3();
             getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
         }
+<<<<<<< HEAD
         if(fragment1!=null){
+=======
+        /*if(fragment1!=null){
+>>>>>>> master
             getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
         }
         if(fragment2!=null){
@@ -236,6 +269,11 @@ public class MenuActivity extends AppCompatActivity {
         }
         if(fragment4!=null){
             getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+<<<<<<< HEAD
         }
+=======
+        }*/
+        fragment3.settingchat(want, me);
+>>>>>>> master
     }
 }

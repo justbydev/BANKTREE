@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:clickable="true">
+=======
+    android:id="@+id/chatlayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true">
+>>>>>>> master
     <TextView
         android:id="@+id/nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:textSize="20sp"></TextView>
+=======
+        android:gravity="right"
+        android:layout_marginTop="30sp"
+        android:layout_marginBottom="30sp"
+        android:text="text"
+        android:textSize="20sp"
+        android:clickable="true"></TextView>
+>>>>>>> master
 </LinearLayout>
