@@ -3,10 +3,14 @@ package com.aram.banktree;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,10 +30,18 @@ public class MenuActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     public int which=-1;
     public static Context menucontext;
+    public String title;
+    public String writer;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
+
+        CheckTypesTask task=new CheckTypesTask();
+        task.execute();
+
         which=0;
         menucontext=this;
         bottomNavigationView=findViewById(R.id.bottom_navigation);
@@ -159,6 +171,71 @@ public class MenuActivity extends AppCompatActivity {
             if(fragment4!=null){
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
+        }
+        else if(which==1){
+            if(fragment1!=null){
+                fragment1.addnewbook(title, writer);
+            }
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
+    }
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void>{
+        ProgressDialog progressDialog=new ProgressDialog(MenuActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("로딩중입니다...");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.dismiss();
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                for(int i=0; i<15; i++){
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    public void changechat(){
+        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+        if(fragment3==null){
+            fragment3=new Fragment3();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
+        }
+        if(fragment1!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
+        }
+        if(fragment2!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment2).commit();
+        }
+        if(fragment3!=null){
+            getSupportFragmentManager().beginTransaction().show(fragment3).commit();
+        }
+        if(fragment4!=null){
+            getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
         }
     }
 }

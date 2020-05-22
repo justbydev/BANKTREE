@@ -12,6 +12,7 @@ import com.aram.banktree.R;
 
 
 public class Fragment4 extends Fragment {
+    public Fragment4(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

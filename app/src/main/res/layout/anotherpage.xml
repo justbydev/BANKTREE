@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/book_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/design_default_color_secondary_variant"></ImageView>
+    <EditText
+        android:id="@+id/content_write"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"></EditText>
+    <TextView
+        android:id="@+id/otherpage"
+        android:text="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"></TextView>
+</RelativeLayout>
