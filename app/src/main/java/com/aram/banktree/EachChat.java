@@ -27,5 +27,7 @@ public class EachChat extends AppCompatActivity {
         want=(TextView)findViewById(R.id.want);
         Intent intent=getIntent();
         want.setText(intent.getExtras().getString("want"));
+
+
     }
 }
