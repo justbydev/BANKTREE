@@ -68,8 +68,20 @@ public class Fragment1 extends Fragment {
                     try {
                         JSONObject jsonObject=new JSONObject(json);
                         System.out.println(jsonObject);
-                        String t=jsonObject.getString("title");
-                        String w=jsonObject.getString("&writer");
+                        String t=jsonObject.optString("title", null);
+                        if(t==null){
+                            t=jsonObject.getString("&title");
+                        }
+                        else{
+                            t=jsonObject.getString("title");
+                        }
+                        String w=jsonObject.optString("writer", null);
+                        if(w==null){
+                            w=jsonObject.getString("&writer");
+                        }
+                        else{
+                            w=jsonObject.getString("writer");
+                        }
                         //System.out.println("================================");
                         //System.out.println(t);
                         //System.out.println(w);
