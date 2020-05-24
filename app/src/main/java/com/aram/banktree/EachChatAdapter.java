@@ -1,21 +1,27 @@
 package com.aram.banktree;
 
 import android.content.Context;
+import android.drm.DrmStore;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ArrayList<ChatMessage> mList=null;
-
-    public EachChatAdapter(ArrayList<ChatMessage> mList) {
+    private String me;
+    public EachChatAdapter(ArrayList<ChatMessage> mList, String me) {
         this.mList=mList;
+        this.me=me;
     }
 
     // Provide a reference to the views for each data item
@@ -49,10 +55,15 @@ public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.message_user.setText(mList.get(position).getName());
         myViewHolder.message_content.setText(mList.get(position).getText());
+        if(mList.get(position).getName().equals(me)){
+            myViewHolder.message_user.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            myViewHolder.message_content.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        }
     }
 
     @Override
     public int getItemCount() {
         return mList==null?0:mList.size();
     }
+
 }
