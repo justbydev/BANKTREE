@@ -38,6 +38,17 @@ public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        //return super.getItemViewType(position);
+        if(mList.get(position).getName().equals(me)){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+
     // Create new views (invoked by the layout manager)
     @Override
     public EachChatAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -45,7 +56,10 @@ public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.messageitem, parent, false);
-
+        if(viewType==1){
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.messageitem2, parent, false);
+        }
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -55,10 +69,7 @@ public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.message_user.setText(mList.get(position).getName());
         myViewHolder.message_content.setText(mList.get(position).getText());
-        if(mList.get(position).getName().equals(me)){
-            myViewHolder.message_user.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            myViewHolder.message_content.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-        }
+
     }
 
     @Override

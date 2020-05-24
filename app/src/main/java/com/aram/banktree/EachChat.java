@@ -144,6 +144,7 @@ public class EachChat extends AppCompatActivity {
                 ChatMessage chat=dataSnapshot.getValue(ChatMessage.class);
                 mList.add(chat);
                 mAdapter.notifyDataSetChanged();
+                message_recycler_view.scrollToPosition(mAdapter.getItemCount()-1);
             }
 
             @Override
