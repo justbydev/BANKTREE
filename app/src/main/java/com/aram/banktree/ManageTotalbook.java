@@ -109,6 +109,18 @@ public class ManageTotalbook {
         return Totalbook_total;
     }
 
+    public ArrayList<Totalbook> gettwenty(){
+        int cnt=0;
+        ArrayList<Totalbook> temp=new ArrayList<>();
+        for(int i=Totalbook_total.size()-1; i>=0; i--){
+            temp.add(Totalbook_total.get(i));
+            cnt++;
+            if (cnt >= 20) {
+                break;
+            }
+        }
+        return temp;
+    }
     public void setTotalbook_total(ArrayList<Totalbook> totalbook_total) {
         Totalbook_total = totalbook_total;
     }
