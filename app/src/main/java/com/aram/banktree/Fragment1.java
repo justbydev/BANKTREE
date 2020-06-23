@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Layout;
 import android.text.TextUtils;
@@ -43,24 +46,42 @@ import java.util.ArrayList;
 
 
 public class Fragment1 extends Fragment {
-    LinearLayout new_book;
-    GridLayout random_book;
+    RecyclerView new_book;
+    RecyclerView random_book;
+    ArrayList<Totalbook> twenty;
     ArrayList<Totalbook> totalbook;
+    LinearLayoutManager linearLayout;
+    NewbookAdapter newbookAdapter;
+    GridLayoutManager gridLayout;
+    RandombookAdapter randombookAdapter;
     //ProgressDialog progressDialog;
     public Fragment1(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment1, container, false);
-        new_book=(LinearLayout)v.findViewById(R.id.new_book);
-        random_book=(GridLayout)v.findViewById(R.id.random_book);
+        new_book=(RecyclerView) v.findViewById(R.id.new_book);
+        random_book=(RecyclerView) v.findViewById(R.id.random_book);
+        twenty=ManageTotalbook.getInstance().gettwenty();
         totalbook=ManageTotalbook.getInstance().getTotalbook_total();
-        System.out.println("#############################################");
-        System.out.println(totalbook.size());
-        System.out.println("((((((((((((((((((((((((((((((((((((((");
-        for(int i=0; i<totalbook.size(); i++){
-            addnewbook(totalbook.get(i).getTitle(), totalbook.get(i).getWriter());
-        }
+
+        new_book.setHasFixedSize(true);
+        linearLayout=new LinearLayoutManager(getContext());
+        linearLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
+        linearLayout.setReverseLayout(true);
+        linearLayout.setStackFromEnd(true);
+        new_book.setLayoutManager(linearLayout);
+
+        newbookAdapter=new NewbookAdapter(twenty);
+        new_book.setAdapter(newbookAdapter);
+
+        random_book.setHasFixedSize(true);
+        gridLayout=new GridLayoutManager(getContext(), 3);
+        random_book.setLayoutManager(gridLayout);
+
+        randombookAdapter=new RandombookAdapter(totalbook);
+        random_book.setAdapter(randombookAdapter);
+
         return v;
     }
     public void addnewbook(String title, String writer){
