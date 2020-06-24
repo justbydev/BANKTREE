@@ -88,10 +88,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소"></Button>
+
         <Button
             android:id="@+id/share"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:text="공유"></Button>
     </LinearLayout>
 </LinearLayout>
