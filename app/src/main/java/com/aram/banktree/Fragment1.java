@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Layout;
 import android.text.TextUtils;
@@ -43,56 +46,47 @@ import java.util.ArrayList;
 
 
 public class Fragment1 extends Fragment {
-    LinearLayout new_book;
-    GridLayout random_book;
-    ArrayList<Totalbook> totalbook=new ArrayList<Totalbook>();
+    RecyclerView new_book;
+    RecyclerView random_book;
+    ArrayList<Totalbook> twenty;
+    ArrayList<Totalbook> totalbook;
+    LinearLayoutManager linearLayout;
+    NewbookAdapter newbookAdapter;
+    GridLayoutManager gridLayout;
+    RandombookAdapter randombookAdapter;
     //ProgressDialog progressDialog;
     public Fragment1(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment1, container, false);
-        new_book=(LinearLayout)v.findViewById(R.id.new_book);
-        random_book=(GridLayout)v.findViewById(R.id.random_book);
-        //progressDialog=new ProgressDialog(getContext());
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Content");
-        //progressDialog.setMessage("로딩중입니다...");
-        //progressDialog.show();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    String json=snapshot.getValue().toString();
-                    json=json.replaceAll("\\s", "&");
-                    System.out.println(json);
-                    try {
-                        JSONObject jsonObject=new JSONObject(json);
-                        System.out.println(jsonObject);
-                        String t=jsonObject.getString("title");
-                        String w=jsonObject.getString("&writer");
-                        //System.out.println("================================");
-                        //System.out.println(t);
-                        //System.out.println(w);
-                        //System.out.println("================================");
-                        t=t.replaceAll("&", " ");
-                        w=w.replaceAll("&", " ");
-                        totalbook.add(new Totalbook(t, w));
-                        addnewbook(t, w);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        new_book=(RecyclerView) v.findViewById(R.id.new_book);
+        random_book=(RecyclerView) v.findViewById(R.id.random_book);
+        twenty=ManageTotalbook.getInstance().gettwenty();
+        totalbook=ManageTotalbook.getInstance().getTotalbook_total();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        new_book.setHasFixedSize(true);
+        linearLayout=new LinearLayoutManager(getContext());
+        linearLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
+        linearLayout.setReverseLayout(true);
+        linearLayout.setStackFromEnd(true);
+        new_book.setLayoutManager(linearLayout);
 
-            }
-        });
-        //progressDialog.dismiss();
+        newbookAdapter=new NewbookAdapter(twenty);
+        new_book.setAdapter(newbookAdapter);
+
+        random_book.setHasFixedSize(true);
+        gridLayout=new GridLayoutManager(getContext(), 3);
+        random_book.setLayoutManager(gridLayout);
+
+        randombookAdapter=new RandombookAdapter(totalbook);
+        random_book.setAdapter(randombookAdapter);
+
         return v;
     }
     public void addnewbook(String title, String writer){
+        System.out.println(title+writer);
+        System.out.println("==========================");
         View childview=getLayoutInflater().inflate(R.layout.book_cover, new_book, false);
         View childview2=getLayoutInflater().inflate(R.layout.randombookcover, random_book, false);
         TextView childwriter=(TextView)childview.findViewById(R.id.writer);

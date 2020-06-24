@@ -84,6 +84,9 @@ public class Fragment3 extends Fragment {
             int size=chatListAdapter.getItemCount();
             myRef=firebaseDatabase.getReference("Chatlist").child(temp);
             myRef.push().setValue(want);
+            String wanttemp=want.replace('.', '-');
+            myRef=firebaseDatabase.getReference("Chatlist").child(wanttemp);
+            myRef.push().setValue(me);
             mArrayList.add(0, new ChatListData(want));
             chatListAdapter.notifyItemInserted(0);
         }

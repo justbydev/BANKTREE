@@ -39,8 +39,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
 
-        CheckTypesTask task=new CheckTypesTask();
-        task.execute();
+
 
         which=0;
         menucontext=this;
@@ -212,34 +211,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
     }
-    private class CheckTypesTask extends AsyncTask<Void, Void, Void>{
-        ProgressDialog progressDialog=new ProgressDialog(MenuActivity.this);
 
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setMessage("로딩중입니다...");
-            progressDialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            progressDialog.dismiss();
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-                for(int i=0; i<15; i++){
-                    Thread.sleep(500);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
     public void changechat(String want, String me){
         //bottomNavigationView.getMenu().getItem(3).setChecked(true);
         if(fragment3==null){
