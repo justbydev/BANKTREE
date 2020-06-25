@@ -1,11 +1,13 @@
 package com.aram.banktree;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
 
     private static ArrayList<ChatListData> mList;
     private static Context context;
@@ -74,6 +77,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mList==null? 0:mList.size();
     }
 
+
     public int getwantposition(String want){
         int position=-1;
         for(int i=0; i<mList.size(); i++){
@@ -84,4 +88,5 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         return position;
     }
+
 }

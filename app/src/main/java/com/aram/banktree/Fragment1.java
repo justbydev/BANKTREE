@@ -11,21 +11,39 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import android.text.Layout;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
+
 import android.view.View;
+
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
+
 import android.widget.Button;
+
+import android.widget.GridLayout;
+
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+
 import android.widget.ListView;
+
 import android.widget.ScrollView;
+
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.widget.TextView;
+
+import android.widget.Toast;
+
+
 
 import com.aram.banktree.R;
 import com.google.api.Distribution;
@@ -44,8 +62,42 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import com.google.api.Distribution;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import com.google.firebase.auth.FirebaseUser;
+
+import com.google.firebase.database.DataSnapshot;
+
+import com.google.firebase.database.DatabaseError;
+
+import com.google.firebase.database.DatabaseReference;
+
+import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.database.Query;
+
+import com.google.firebase.database.ValueEventListener;
+
+
+
+import org.json.JSONArray;
+
+import org.json.JSONException;
+
+import org.json.JSONObject;
+
+
+
+import java.util.ArrayList;
+
+
+
+
 
 public class Fragment1 extends Fragment {
+
     RecyclerView new_book;
     RecyclerView random_book;
     ArrayList<Totalbook> twenty;
@@ -54,11 +106,16 @@ public class Fragment1 extends Fragment {
     NewbookAdapter newbookAdapter;
     GridLayoutManager gridLayout;
     RandombookAdapter randombookAdapter;
+
     //ProgressDialog progressDialog;
     public Fragment1(){}
+
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+
                              Bundle savedInstanceState) {
+
         View v=inflater.inflate(R.layout.fragment1, container, false);
         new_book=(RecyclerView) v.findViewById(R.id.new_book);
         random_book=(RecyclerView) v.findViewById(R.id.random_book);
