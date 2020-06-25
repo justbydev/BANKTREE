@@ -50,7 +50,11 @@ public class RandombookAdapter extends RecyclerView.Adapter {
                 intent= new Intent(v.getContext(), BookInfo.class);
                 intent.putExtra("number",position);
                 v.getContext().startActivity(intent);
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> ac615cd20ca96c223658f40cfa20ee6bb262db23
             }
         });
     }

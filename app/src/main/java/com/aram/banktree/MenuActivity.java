@@ -191,6 +191,8 @@ public class MenuActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
         }
+<<<<<<< HEAD
+=======
         else if(which==2){
             if(fragment3==null){
                 fragment3=new Fragment3();
@@ -210,15 +212,43 @@ public class MenuActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
         }
+>>>>>>> master
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                for(int i=0; i<15; i++){
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+<<<<<<< HEAD
+    public void changechat(){
+        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+=======
+>>>>>>> b809e351464da2fc365a0e58b11245f687c57594
+>>>>>>> ac615cd20ca96c223658f40cfa20ee6bb262db23
     public void changechat(String want, String me){
         //bottomNavigationView.getMenu().getItem(3).setChecked(true);
+>>>>>>> master
         if(fragment3==null){
             fragment3=new Fragment3();
             getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
         }
+<<<<<<< HEAD
+        if(fragment1!=null){
+=======
         /*if(fragment1!=null){
+>>>>>>> master
             getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
         }
         if(fragment2!=null){
@@ -229,7 +259,11 @@ public class MenuActivity extends AppCompatActivity {
         }
         if(fragment4!=null){
             getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+<<<<<<< HEAD
+        }
+=======
         }*/
         fragment3.settingchat(want, me);
+>>>>>>> master
     }
 }

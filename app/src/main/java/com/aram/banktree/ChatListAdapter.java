@@ -1,11 +1,17 @@
 package com.aram.banktree;
 
+<<<<<<< HEAD
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+=======
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+>>>>>>> master
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+<<<<<<< HEAD
+    private ArrayList<ChatListData> mList;
+    ChatListAdapter(ArrayList<ChatListData> mList){
+        this.mList=mList;
+    }
+    public static class ChatListViewHolder extends RecyclerView.ViewHolder{
+        TextView nickname;
+        public ChatListViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nickname=(TextView)itemView.findViewById(R.id.nickname);
+=======
 
     private static ArrayList<ChatListData> mList;
     private static Context context;
@@ -50,6 +67,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             });
+>>>>>>> master
         }
     }
 
@@ -73,6 +91,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return mList==null? 0:mList.size();
     }
+<<<<<<< HEAD
+=======
 
     public int getwantposition(String want){
         int position=-1;
@@ -84,4 +104,5 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         return position;
     }
+>>>>>>> master
 }
