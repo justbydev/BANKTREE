@@ -25,15 +25,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.ArrayList;
+
 
 public class Fragment3 extends Fragment {
     RecyclerView recyclerView;
     private ArrayList<ChatListData> mArrayList;
     private ChatListAdapter chatListAdapter;
+
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseAuth firebaseAuth;
+
     public Fragment3(){}
 
     @Override
@@ -47,6 +51,7 @@ public class Fragment3 extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         mArrayList=new ArrayList<ChatListData>();
+
 
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -96,5 +101,6 @@ public class Fragment3 extends Fragment {
             intent.putExtra("want", want);
             startActivity(intent);
         }
+
     }
 }
