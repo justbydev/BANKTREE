@@ -1,6 +1,7 @@
 package com.aram.banktree;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 public class NewbookAdapter extends RecyclerView.Adapter {
     ArrayList<Totalbook> mList=null;
+    private Intent intent;
     static Context context;
     public NewbookAdapter(ArrayList<Totalbook> mList){
         this.mList=mList;
@@ -49,12 +51,32 @@ public class NewbookAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.writer.setText(mList.get(position).getWriter());
         myViewHolder.title.setText(mList.get(position).getTitle());
+
+
+
+        myViewHolder.cover_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(v.getContext(), BookInfo.class);
+                intent.putExtra("title",mList.get(position).getTitle());
+                intent.putExtra("writer",mList.get(position).getWriter());
+
+                v.getContext().startActivity(intent);
+
+
+            }
+        });
         myViewHolder.chatbutton.setTag(mList.get(position).getWriter());
-        myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+                myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String want=v.getTag().toString();
