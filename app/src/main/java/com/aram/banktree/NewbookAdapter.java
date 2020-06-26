@@ -55,25 +55,23 @@ public class NewbookAdapter extends RecyclerView.Adapter {
         MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.writer.setText(mList.get(position).getWriter());
         myViewHolder.title.setText(mList.get(position).getTitle());
+
+
+
         myViewHolder.cover_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent= new Intent(v.getContext(), BookInfo.class);
-                intent.putExtra("number",position);
+                intent.putExtra("title",mList.get(position).getTitle());
+                intent.putExtra("writer",mList.get(position).getWriter());
+
                 v.getContext().startActivity(intent);
 
 
             }
         });
         myViewHolder.chatbutton.setTag(mList.get(position).getWriter());
-        myViewHolder.cover_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(v.getContext(), BookInfo.class);
-                intent.putExtra("number", position);
-                v.getContext().startActivity(intent);
-            }
-        });
+
 
 
 

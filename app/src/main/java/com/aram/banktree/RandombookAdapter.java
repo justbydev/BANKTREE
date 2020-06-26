@@ -48,7 +48,8 @@ public class RandombookAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 intent= new Intent(v.getContext(), BookInfo.class);
-                intent.putExtra("number",position);
+                intent.putExtra("title",mList.get(position).getTitle());
+                intent.putExtra("writer",mList.get(position).getWriter());
                 v.getContext().startActivity(intent);
 
             }
