@@ -181,16 +181,26 @@ public class Newbook extends AppCompatActivity {
                     String email=firebaseUser.getEmail();
                     String title=book_title.getText().toString();
                     int totalpage=viewpagerbase.gettotalpage();
+                    String page=Integer.toString(totalpage);
                     Bookcontent bookcontent=new Bookcontent(email, totalpage);
                     bookcontent.setTitle(title);
+                    ArrayList<String> content;
+                    ArrayList<String> color;
+                    content=new ArrayList<>();
+                    color=new ArrayList<>();
                     //bookcontent.color=new int[totalpage];
                     for(int i=0; i<totalpage; i++){
                         bookcontent.setContent(viewpagerbase.getcontent(i));
+                        content.add(viewpagerbase.getcontent(i));
                         bookcontent.setColor(viewpagerbase.getcolor(i));
+                        color.add(Integer.toString(viewpagerbase.getcolor(i)));
                     }
                     contentreference.push().setValue(bookcontent);
                     ((MenuActivity)MenuActivity.menucontext).title=title;
                     ((MenuActivity)MenuActivity.menucontext).writer=email;
+                    ((MenuActivity)MenuActivity.menucontext).page=page;
+                    ((MenuActivity)MenuActivity.menucontext).content=content;
+                    ((MenuActivity)MenuActivity.menucontext).color=color;
                     ((MenuActivity)MenuActivity.menucontext).which=1;
                     finish();
                     return;
@@ -308,15 +318,4 @@ public class Newbook extends AppCompatActivity {
                 break;
         }
     }
-
-    /*public void addPage(){
-        nowpage=nowpage+1;
-        mAdapter.addFragment(new Viewpagerbase());
-        vp.setAdapter(mAdapter);
-        vp.setCurrentItem(nowpage);
-        System.out.println(mAdapter.getCount());
-        Viewpagerbase fragment=(Viewpagerbase) mAdapter.getfragment(mAdapter.getCount()-1);
-        fragment.setpagenumber(nowpage+1);
-
-    }*/
 }
