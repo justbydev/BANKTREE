@@ -12,8 +12,9 @@
         android:text="사용자 이름 표시되는 부분"></TextView>
     <TextView
         android:id="@+id/message_content"
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:text="메시지 내용 표시되는 부분"
+        android:gravity="left"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"></TextView>
 </LinearLayout>
