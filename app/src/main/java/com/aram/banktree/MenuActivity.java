@@ -20,6 +20,8 @@ import com.aram.banktree.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class MenuActivity extends AppCompatActivity {
     Fragment1 fragment1;
     Fragment2 fragment2;
@@ -32,6 +34,9 @@ public class MenuActivity extends AppCompatActivity {
     public static Context menucontext;
     public String title;
     public String writer;
+    public ArrayList<String> content;
+    public ArrayList<String> color;
+    public String page;
     ProgressDialog progressDialog;
 
     @Override
@@ -42,6 +47,8 @@ public class MenuActivity extends AppCompatActivity {
 
 
         which=0;
+        content=new ArrayList<>();
+        color=new ArrayList<>();
         menucontext=this;
         bottomNavigationView=findViewById(R.id.bottom_navigation);
         logbutton=findViewById(R.id.logbutton);
@@ -55,9 +62,9 @@ public class MenuActivity extends AppCompatActivity {
         logbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               firebaseAuth.signOut();
-               finish();
-               startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         bottomNavigationView.getMenu().getItem(0).setChecked(true);//처음 작동시킬 때 홈 화면 탭 버튼이 체크되도록
@@ -175,7 +182,8 @@ public class MenuActivity extends AppCompatActivity {
         }
         else if(which==1){
             if(fragment1!=null){
-                fragment1.addnewbook(title, writer);
+                //fragment1.addnewbook(title, writer);
+                fragment1.addnewbooktorecycler(title, writer, page, content, color);
             }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){

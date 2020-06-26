@@ -100,6 +100,7 @@ public class Fragment1 extends Fragment {
 
     RecyclerView new_book;
     RecyclerView random_book;
+    Totalbook newbook;
     ArrayList<Totalbook> twenty;
     ArrayList<Totalbook> totalbook;
     LinearLayoutManager linearLayout;
@@ -141,30 +142,19 @@ public class Fragment1 extends Fragment {
 
         return v;
     }
-    public void addnewbook(String title, String writer){
-        System.out.println(title+writer);
-        System.out.println("==========================");
-        View childview=getLayoutInflater().inflate(R.layout.book_cover, new_book, false);
-        View childview2=getLayoutInflater().inflate(R.layout.randombookcover, random_book, false);
-        TextView childwriter=(TextView)childview.findViewById(R.id.writer);
-        TextView childtitle=(TextView)childview.findViewById(R.id.title);
-        Button childbutton=(Button)childview.findViewById(R.id.chatbutton);//버튼 태그 설정 위한 것
-        TextView childwriter2=(TextView)childview2.findViewById(R.id.writer);
-        TextView childtitle2=(TextView)childview2.findViewById(R.id.title);
-        childwriter.setText(writer);
-        childtitle.setText("제목: "+title);
-        childbutton.setTag(writer);//버튼 태그를 writer 아이디로 설정, 일종의 꼼수
-        childbutton.setOnClickListener(buttonClickListener);
-        childwriter2.setText(writer);
-        childtitle2.setText("제목: "+title);
-        new_book.addView(childview);
-        random_book.addView(childview2);
-        /*Context context=getContext().getApplicationContext();
-        LayoutInflater inflater=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.book_cover, new_book, true);
-        LayoutInflater gridinflater=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        gridinflater.inflate(R.layout.book_cover, random_book, true);*/
+    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color){
+        newbook=new Totalbook();
+        newbook.setTitle(title);
+        newbook.setWriter(writer);
+        newbook.setPage(page);
+        newbook.setContent(content);
+        newbook.setColor(color);
+        totalbook.add(newbook);
+        twenty.add(newbook);
+        newbookAdapter.notifyDataSetChanged();
+        randombookAdapter.notifyDataSetChanged();
     }
+
     private View.OnClickListener buttonClickListener=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
