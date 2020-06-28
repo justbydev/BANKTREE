@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(firebaseAuth.getCurrentUser() != null){
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
-            //그리고 profile 액티비티를 연다.
-            startActivity(new Intent(getApplicationContext(), MenuActivity.class)); //추가해 줄 ProfileActivity
+            //그리고 MenuActivity를 연다.
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
         }
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         progressDialog.dismiss();
                         if(task.isSuccessful()) {
                             finish();
+                            //login이 정상적으로 완료되면 MenuActivity로
                             startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                         } else {
                             Toast.makeText(getApplicationContext(), "로그인 실패!", Toast.LENGTH_LONG).show();
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }
         if(view == textviewSingin) {
-
+            //회원가입을 위한 버튼으로 MainActivity로 연결, MainActivity가 회원가입창
             startActivity(new Intent(this, MainActivity.class));
         }
         if(view == textviewFindPassword) {

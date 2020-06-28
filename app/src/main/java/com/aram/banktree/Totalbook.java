@@ -1,7 +1,8 @@
 package com.aram.banktree;
 
 import java.util.ArrayList;
-
+//Totalbook class는 Splash에서 firebase로부터 전자책을 받아올 때 하나 하나 저장하는 class
+//또한 새로운 책을 등록할 때 사용하는 class
 public class Totalbook {
     private String title;
     private String writer;

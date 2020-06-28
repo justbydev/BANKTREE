@@ -121,8 +121,9 @@ public class Fragment1 extends Fragment {
         new_book=(RecyclerView) v.findViewById(R.id.new_book);
         random_book=(RecyclerView) v.findViewById(R.id.random_book);
         twenty=ManageTotalbook.getInstance().gettwenty();
+        //twenty는 신규 책 목록을 위한 것으로 20개만 보이도록 하기 위해서 20개만 가지고 오는 것
         totalbook=ManageTotalbook.getInstance().getTotalbook_total();
-
+        //totalbook은 랜덤 책을 위한 것으로 가지고 있는 전자책 전체를 가져온 데이터
         new_book.setHasFixedSize(true);
         linearLayout=new LinearLayoutManager(getContext());
         linearLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -130,6 +131,8 @@ public class Fragment1 extends Fragment {
         linearLayout.setStackFromEnd(true);
         new_book.setLayoutManager(linearLayout);
 
+        //newbookAdapter는 신규 책을 보여주는 recyclerview를 위한 Adapter
+        //newbook recyclerview는 Horizontal LinearLayout
         newbookAdapter=new NewbookAdapter(twenty);
         new_book.setAdapter(newbookAdapter);
 
@@ -137,11 +140,15 @@ public class Fragment1 extends Fragment {
         gridLayout=new GridLayoutManager(getContext(), 3);
         random_book.setLayoutManager(gridLayout);
 
+        //randombookAdapter는 랜덤 책 전체를 보여주는 recyclerview를 위한 Adapter
+        //randombook recyclerview는 Gridlayout
         randombookAdapter=new RandombookAdapter(totalbook);
         random_book.setAdapter(randombookAdapter);
 
         return v;
     }
+    //이 method는 새로운 전자책 등록시에 오는 method로 Totalbook class로 firebase에 등록
+    //recyclerview에 새롭게 추가한다
     public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color){
         newbook=new Totalbook();
         newbook.setTitle(title);
@@ -155,26 +162,4 @@ public class Fragment1 extends Fragment {
         randombookAdapter.notifyDataSetChanged();
     }
 
-    private View.OnClickListener buttonClickListener=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int id=v.getId();
-            switch(id){
-                case R.id.chatbutton:
-                    String want=v.getTag().toString();
-                    FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-                    FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
-                    String me=firebaseUser.getEmail();
-                    if(want.equals(me)){
-                        Toast.makeText(getContext(), "내가 쓴 글입니다", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        ((MenuActivity)MenuActivity.menucontext).changechat(want, me);
-                    }
-                    return;
-                default:
-                    return;
-            }
-        }
-    };
 }

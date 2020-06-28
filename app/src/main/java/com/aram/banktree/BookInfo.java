@@ -25,36 +25,51 @@ public class BookInfo extends AppCompatActivity {
     TextView Text_writer;
     TextView Text_writerinfo;
     Button Writerpagebutton;
-
+    ImageView profile_image;
+    String title;
+    String writer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Bundle extras = getIntent().getExtras();
         setContentView(R.layout.activity_book_info);
+
         ArrayList<Totalbook> mList = null;
         imageView = findViewById(R.id.bookimage);
         Text_title = findViewById(R.id.text_title);
-        Text_title.setText("제목: " + extras.getString("title"));
         Text_writer = findViewById(R.id.text_writer);
-        Text_writer.setText("작가: " + extras.getString("writer"));
         Text_writerinfo = findViewById(R.id.text_writerinfo);
-        Text_writerinfo.setText(extras.getString("writer"));
+        profile_image=findViewById(R.id.profile_image);
+
+        Bundle extras = getIntent().getExtras();
+
+
+
+        if(extras!=null){
+            title=extras.getString("title", "nothing");
+            writer=extras.getString("writer", "nothing");
+        }
+        Text_title.setText("제목: " + title);
+        Text_writer.setText("작가: " + writer);
+        Text_writerinfo.setText(writer);
+
         Writerpagebutton = (Button) findViewById(R.id.writerpage);
-        this.Writerpagebutton.setOnClickListener(new View.OnClickListener() {
+
+        Writerpagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(
-                        getApplicationContext(),
+                        BookInfo.this,
                         writerpage.class);
-                intent.putExtra("wr",extras.getString("writer"));
+                intent.putExtra("wr",writer);
 
                 startActivity(intent);
 
             }
 
         });
+
     }
 }
 

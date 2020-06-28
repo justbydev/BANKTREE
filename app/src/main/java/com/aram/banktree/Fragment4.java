@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.aram.banktree.R;
 
-
+//공지, 앱 설명을 위한 fragment
 public class Fragment4 extends Fragment {
     public Fragment4(){}
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+//각각의 페이지에 대한 정보를 저장하기 위한 class
 public class Anotherpage extends Fragment {
     TextView page;
     ImageView book_content;

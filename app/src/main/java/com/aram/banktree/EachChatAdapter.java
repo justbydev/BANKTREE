@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-
+//개인 채팅방에서 대화 하나를 위한 Adapter
 public class EachChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ArrayList<ChatMessage> mList=null;
     private String me;

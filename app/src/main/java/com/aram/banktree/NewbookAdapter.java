@@ -61,22 +61,27 @@ public class NewbookAdapter extends RecyclerView.Adapter {
         myViewHolder.cover_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(v.getContext(), BookInfo.class);
+                intent= new Intent(context, BookInfo.class);
                 intent.putExtra("title",mList.get(position).getTitle());
                 intent.putExtra("writer",mList.get(position).getWriter());
-
-                v.getContext().startActivity(intent);
-
-
+                context.startActivity(intent);
+            }
+        });
+        myViewHolder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(context, BookInfo.class);
+                intent.putExtra("title", mList.get(position).getTitle());
+                intent.putExtra("writer", mList.get(position).getWriter());
+                context.startActivity(intent);
             }
         });
         myViewHolder.chatbutton.setTag(mList.get(position).getWriter());
 
 
 
-
-
-                myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
+        //newbook에는 각각 채팅 버튼이 생성되어 있고 그 채팅 버튼을 눌렀을 때 작동하는 것
+        myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String want=v.getTag().toString();
@@ -87,6 +92,10 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                     Toast.makeText(context, "내가 쓴 글입니다", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    //내가 아닌 다른 사람과의 채팅 버튼을 누르면 우선
+                    //menuactivity의 changechat 함수를 호출하게 된다
+                    //그러면 changechat에서는 우선 채팅 화면이 있는 fragment3를 생성해서 add하고
+                    //fragment3의 settingchat()을 호출하게 된다
                     ((MenuActivity)MenuActivity.menucontext).changechat(want, me);
                 }
             }

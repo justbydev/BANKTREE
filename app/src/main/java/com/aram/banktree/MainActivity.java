@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(firebaseAuth.getCurrentUser() != null){
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
-            //그리고 profile 액티비티를 연다.
+            //그리고 MenuActivity를 연다.
             startActivity(new Intent(getApplicationContext(), MenuActivity.class)); //추가해 줄 ProfileActivity
         }
         //initializing views
@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+            //이메일 형식에 맞으면 emailcheck가 1이 된다.
+            //여기서 체크한다는 것은 이메일을 다시 새로 쓴다는 것이니까 이메일 인증을 다시 해야함
+            //따라서, emailequal, emailvalidatebutton을 0으로 초기화
             @Override
             public void afterTextChanged(Editable s) {
                 email = editTextEmail.getText().toString().trim();
@@ -137,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     DatabaseReference checkequal=FirebaseDatabase.getInstance().getReference("Memberemail");
                     checkequal.addListenerForSingleValueEvent(new ValueEventListener() {
+                        //이미 가입되어 있는 이메일을 firebase를 통해 체크해서
+                        //이미 가입되어 있으면 emailequal=1, 아니면 emailequal=0
+                        //emailequal이 0이 되었을 때 인증 버튼을 누른 것이므로
+                        //emailvalidatebutton을 1로 바꾼다
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(DataSnapshot snapshot:dataSnapshot.getChildren()){
@@ -169,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                passwordchecktext.setText("영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요\n");
+                passwordchecktext.setText("영문자, 숫자, 특수문자 포함 9자리 이상으로 해주세요\n");
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -177,12 +184,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void afterTextChanged(Editable s) {
                 password = editTextPassword.getText().toString();
+                //비밀번호가 올바른 형식이면 passwordcheck를 1로 바꾼다
                 if(password.matches(passwordValidation)){
                     passwordchecktext.setText("올바른 비밀번호 형식입니다\n");
                     passwordcheck=1;
                 }
                 else{
-                    passwordchecktext.setText("영문자, 숫자, 특수문자 포함 8자리 이상으로 해주세요\n");
+                    passwordchecktext.setText("영문자, 숫자, 특수문자 포함 9자리 이상으로 해주세요\n");
                     passwordcheck=0;
                 }
             }
@@ -195,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+            //비밀번호 재입력을 통해서 다시 한번 확인하는 것으로 처음 적은 비밀번호와 같다면
+            //passwordequal은 1, 아니면 0이다
             @Override
             public void afterTextChanged(Editable s) {
                 repassword=editTextPassword2.getText().toString();
@@ -247,6 +257,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 EM.setEmail(email);
                                                 memberreference.push().setValue(member);
                                                 emailreference.push().setValue(email);
+                                                //회원가입을 하면 우선 firebase에 회원에 대한 정보를 저장
+                                                //firebase 저장시 Member class를 사용
+                                                //회원가입 후 자동 로그인이 아니라 다시 한번 로그인하도록 유도하기 위해 signOut()시키고
+                                                //다시 LoginActivity로 이동시킨다
                                                 firebaseAuth.signOut();
                                                 finish();
                                                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -273,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textviewSingin.setOnClickListener(this);
     }
+    //모든 것을 입력해야 하므로 한 군데라도 빈 곳이 있으면 알려주는 method
     private boolean check_empty(String email, String password, String repassword, String name, String gender){
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this, "성명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -296,12 +311,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
-    //button click event
+    //이미 가입된 회원이라면 회원가입 창에서 다시 로그인 창으로 이동하는 버튼
     @Override
     public void onClick(View view) {
         if(view == textviewSingin) {
             //TODO
+
             startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
+            finish();
         }
     }
 }
