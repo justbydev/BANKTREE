@@ -85,6 +85,7 @@ public class Newbook extends AppCompatActivity {
         book_content=(ImageView)findViewById(R.id.book_content);
         content_write=(EditText)findViewById(R.id.content_write);
 
+        //글추가 눌렀을 때 옆으로 넘기게 fragment 추가되는 역할하는 viewpagerbase
         viewpagerbase=(Viewpagerbase)this.getSupportFragmentManager().findFragmentById(R.id.viewpagerbase);
         //vp=(ViewPager)findViewById(R.id.viewpager_content);
         //mAdapter=new contentpagerAdapter(getSupportFragmentManager());
@@ -111,14 +112,14 @@ public class Newbook extends AppCompatActivity {
         public void onClick(View v) {
             int id=v.getId();
             switch(id){
-                case R.id.image:
-                    if(Build.VERSION.SDK_INT>=23){
+                case R.id.image://앨범에서 이미지 선택
+                    if(Build.VERSION.SDK_INT>=23){//버전이 23이상인 경우 권한 체크
                         int permissionReadStorage=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.READ_EXTERNAL_STORAGE);
                         int permissionWriteStorage=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         if(permissionReadStorage== PackageManager.PERMISSION_DENIED || permissionWriteStorage==PackageManager.PERMISSION_DENIED){
                             ActivityCompat.requestPermissions(Newbook.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_CODE);
                         }
-                        else{
+                        else{//이미 권한 허락이 되어 있으면 갤러리로 가서 사진 가져옴
                             Intent imageintent=new Intent(Intent.ACTION_PICK);
                             imageintent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                             imageintent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -126,7 +127,7 @@ public class Newbook extends AppCompatActivity {
                         }
                     }
                     break;
-                case R.id.picture:
+                case R.id.picture://카메라와 연결
                     if(Build.VERSION.SDK_INT>=23){
                         int permissioncamera=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.CAMERA);
                         if(permissioncamera==PackageManager.PERMISSION_DENIED){
@@ -134,10 +135,10 @@ public class Newbook extends AppCompatActivity {
                         }
                     }
                     break;
-                case R.id.color:
+                case R.id.color://단색 선택 연결
                     openColorPicker();
                     return;
-                case R.id.page_add:
+                case R.id.page_add://새로운 페이지 추가하는 것, viewpagerbase 이용
                     if(nowpage>50){
                         Toast.makeText(Newbook.this, "최대 50페이지까지 가능합니다\n", Toast.LENGTH_LONG).show();
                     }
@@ -146,10 +147,6 @@ public class Newbook extends AppCompatActivity {
                         nowpage=nowpage+1;
                     }
                     return;
-                /*case R.id.costset_button:
-                    CostCustomDialog customDialog=new CostCustomDialog(Newbook.this);
-                    customDialog.callFunction(costset_button);
-                    return;*/
                 case R.id.commuteset_button:
                     if(commutset==0){
                         commutset=1;
@@ -160,21 +157,12 @@ public class Newbook extends AppCompatActivity {
                         commuteset_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
                     }
                     return;
-                /*case R.id.mentoragree_button:
-                    if(mentoragree==0){
-                        mentoragree=1;
-                        mentoragree_button.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
-                    }
-                    else if(mentoragree==1){
-                        mentoragree=0;
-                        mentoragree_button.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
-                    }
-                    return;*/
                 case R.id.cancel:
                     ((MenuActivity)MenuActivity.menucontext).which=0;
                     finish();
                     return;
-                case R.id.share:
+                case R.id.share://공유 버튼 누르는 경우 Bookcontent class 이용해서
+                    //firebase에 저장하고 Menuactivity에서 which를 1로 만듬
                     DatabaseReference contentreference= FirebaseDatabase.getInstance().getReference("Content");
                     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
@@ -210,6 +198,7 @@ public class Newbook extends AppCompatActivity {
         }
     };
 
+    //단색 체크하는 기능
     public void openColorPicker(){
         AmbilWarnaDialog colorPicker=new AmbilWarnaDialog(this, contentdefaultcolor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
@@ -230,6 +219,7 @@ public class Newbook extends AppCompatActivity {
         colorPicker.show();
     }
 
+    //권한 체크 이후 들어오게 되는 override method
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -317,5 +307,12 @@ public class Newbook extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ((MenuActivity)MenuActivity.menucontext).which=0;
+        finish();
     }
 }

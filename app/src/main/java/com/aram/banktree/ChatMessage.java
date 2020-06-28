@@ -1,5 +1,6 @@
 package com.aram.banktree;
 
+//개인 채팅방에서 대화 하나 하나에 대한 class
 public class ChatMessage {
     private String text;
     private String name;

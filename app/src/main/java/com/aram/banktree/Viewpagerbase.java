@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+//새로은 책 추가 눌렀을 때 새로운 페이지 추가해서 fragment 추가하는 역할
 public class Viewpagerbase extends Fragment {
     public Viewpagerbase(){}
     private ViewPager viewPager;

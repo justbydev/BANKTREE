@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+//각각의 채팅방
 public class EachChat extends AppCompatActivity {
     TextView want;
     EditText message_edit;
@@ -74,54 +75,17 @@ public class EachChat extends AppCompatActivity {
         metemp=me.replace('.', '-');
         mList=new ArrayList<ChatMessage>();
 
+        //각각 채팅방은 대화 하나당 하나의 목록으로써 recyclerview를 사용하고
+        //이 recyclerview는 EachChatAdapter를 사용한다
+
+        //채팅창 열때 초반 채팅창 recyclerview는 비어 있는 상태로 연결
         mAdapter = new EachChatAdapter(mList, me);
         message_recycler_view.setAdapter(mAdapter);
 
         myRef=firebaseDatabase.getReference("Chat").child(metemp).child(othertemp);
 
-        /*myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    String now=snapshot.getValue().toString();
-                    now=now.replace(" ", "&");
-                    now=now.replace("\n", "$");
-                    System.out.println("=============================================");
-                    System.out.println(now);
-                    try{
-                        JSONObject json=new JSONObject(now);
-                        String name=json.optString("name", null);
-                        if(name==null){
-                            name=json.getString("&name");
-                        }
-                        String txt=json.optString("text", null);
-                        if(txt==null){
-                            txt=json.getString("&text");
-                        }
-                        ChatMessage chat=new ChatMessage();
-                        name=name.replace("&", " ");
-                        txt=txt.replace("&", " ");
-                        txt=txt.replace("$", "\n");
-                        chat.setName(name);
-                        chat.setText(txt);
-                        mList.add(chat);
-                    }catch(JSONException e){
-                        e.printStackTrace();
-                    }
 
-                }
-                // specify an adapter (see also next example)
-                mAdapter = new EachChatAdapter(mList);
-                message_recycler_view.setAdapter(mAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
-
+        //채팅 대화를 전송할 때의 method로써 ChatMessage class를 이용해서 firebase에 저장
         send_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +102,13 @@ public class EachChat extends AppCompatActivity {
                 }
             }
         });
+        //채팅 목록을 가져오기 위한 코드
+        //채팅은 계속 치는 것이므로 그 변화에 대한 것을 실시간으로 적용시키기 위해서
+        //addChildEventListener를 사용하고 onChildAdded를 사용한다
+
+        //위의 send_message에서 채팅을 전송하면 우선 firebase에 저장되고 그럼
+        //addChildEventListener를 이용해서 실시간 데이터 베이스에서 실시간으로 변화를
+        //감지하고 다시 EachChatAdapter에 추가한다
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -167,5 +138,12 @@ public class EachChat extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ((MenuActivity)MenuActivity.menucontext).which=2;
+        finish();
     }
 }

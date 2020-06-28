@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+//모든 화면에서 다 접근 가능하고 이미 받은 데이터에 대해서 다 접근가능하도록
+//Singleton으로 만든 class
 public class ManageTotalbook {
     private static ManageTotalbook manageTotalbook=null;
     ArrayList<Totalbook> Totalbook_total;
@@ -31,6 +33,7 @@ public class ManageTotalbook {
         Totalbook_total=new ArrayList<>();
     }
 
+    //firebase realtime database에서 전자책 전체를 가져오는 method
     public void getTotalbook(){
         DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Content");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,9 +112,11 @@ public class ManageTotalbook {
         return Totalbook_total;
     }
 
+    //신규 책의 책 목록 20개만을 가져오기 위한 getter
     public ArrayList<Totalbook> gettwenty(){
         int cnt=0;
         ArrayList<Totalbook> temp=new ArrayList<>();
+        ArrayList<Totalbook> tmp=new ArrayList<>();
         for(int i=Totalbook_total.size()-1; i>=0; i--){
             temp.add(Totalbook_total.get(i));
             cnt++;
@@ -119,7 +124,10 @@ public class ManageTotalbook {
                 break;
             }
         }
-        return temp;
+        for(int i=temp.size()-1; i>=0; i--){
+            tmp.add(temp.get(i));
+        }
+        return tmp;
     }
     public void setTotalbook_total(ArrayList<Totalbook> totalbook_total) {
         Totalbook_total = totalbook_total;

@@ -14,8 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".writerpage"></activity>
-        <activity android:name=".BookInfo" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +28,8 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".Newbook" />
         <activity android:name=".EachChat" />
+        <activity android:name=".writerpage"/>
+        <activity android:name=".BookInfo" />
     </application>
 
 </manifest>

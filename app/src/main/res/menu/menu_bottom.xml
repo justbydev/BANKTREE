@@ -8,7 +8,7 @@
         app:showAsAction="always"></item>
     <item
         android:id="@+id/menu_mentor"
-        android:title="멘토링"
+        android:title="마이페이지"
         android:enabled="true"
         app:showAsAction="always"></item>
     <item
@@ -23,7 +23,7 @@
         app:showAsAction="always"></item>
     <item
         android:id="@+id/menu_mypage"
-        android:title="마이페이지"
+        android:title="공지"
         android:enabled="true"
         app:showAsAction="always"></item>
 

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aram.banktree.R;
-
+//마이페이지를 위한 fragment
 
 public class Fragment2 extends Fragment {
     public Fragment2(){}

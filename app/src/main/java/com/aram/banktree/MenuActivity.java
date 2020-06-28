@@ -59,6 +59,7 @@ public class MenuActivity extends AppCompatActivity {
         else{
             logbutton.setText("로그인");
         }
+        //사실 로그인을 무조건 히야만 MenuActivity로 올 수 있기 때문에 로그아웃 기능만 있으면 된다
         logbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +153,8 @@ public class MenuActivity extends AppCompatActivity {
                         }
                         return true;
                     case R.id.menu_plus:
+                        //글 추가 기능만 Activity로써 Newbook Activity가 그 기능을 하게 된다
+                        //다른 버튼은 전부 Fragment이다
                         startActivity(new Intent(MenuActivity.this, Newbook.class));
                         return true;
                     default:
@@ -165,7 +168,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if(which==0){
+        if(which==0){//글 추가 누른 후 그냥 취소하거나 back button 누르면 오게 되는 case
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){
                 getSupportFragmentManager().beginTransaction().show(fragment1).commit();
@@ -180,9 +183,10 @@ public class MenuActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
         }
-        else if(which==1){
+        else if(which==1){//글 추가 완료 후 오게 되는 case
             if(fragment1!=null){
                 //fragment1.addnewbook(title, writer);
+                //fragment1의 method를 사용하는 것으로 이것을 통해 recyclerview에 새로 등록된 책을 추가한다
                 fragment1.addnewbooktorecycler(title, writer, page, content, color);
             }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -199,7 +203,8 @@ public class MenuActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
             }
         }
-        else if(which==2){
+        else if(which==2){//어떤 경우이든 채팅방을 열게 되면 EachChat activity로 가게 되는데 들어가는 순간 which를 2로 바꾼다
+            //따라서, 개인 채팅방을 닫게 되면 이곳으로 오게 되는 case
             if(fragment3==null){
                 fragment3=new Fragment3();
                 getSupportFragmentManager().beginTransaction().add(R.id.container, fragment3).commit();
@@ -220,6 +225,8 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    //홈 화면의 신규 책 목록에 있는 채팅 버튼을 누른 경우 MenuActivity의 changechat method로 간 후
+    //fragment3의 settingchat으로 가면 Eachchat activity를 호출해서 개인 채팅방이 열린다
     public void changechat(String want, String me){
         //bottomNavigationView.getMenu().getItem(3).setChecked(true);
         if(fragment3==null){

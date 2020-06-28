@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+//채팅방 목록 recyclerview를 위한 Adapter
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 

@@ -1,5 +1,6 @@
 package com.aram.banktree;
-
+//Member class는 회원가입 할 때 회원 정보를 저장하는 class로
+//이 Member class를 통해 firebase 서버에 회원 정보를 저장하게 된다
 public class Member {
     String email;
     String name;
