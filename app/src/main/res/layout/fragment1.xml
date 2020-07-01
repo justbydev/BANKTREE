@@ -17,50 +17,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/new_book"
             android:layout_width="match_parent"
-            android:layout_height="200sp"/>
+            android:layout_height="300sp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/home_spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10sp">
-            <Button
-                android:id="@+id/selfcare_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="자기 관리">
-            </Button>
-            <Button
-                android:id="@+id/employ_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="취업/진학">
-            </Button>
-            <Button
-                android:id="@+id/life_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일상">
-            </Button>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10sp">
-            <Button
-                android:id="@+id/relation_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인간 관계">
-            </Button>
-            <Button
-                android:id="@+id/activity_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="대외활동/창업">
-            </Button>
-        </LinearLayout>
+            android:entries="@array/cat2"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/random_book"
             android:layout_width="match_parent"

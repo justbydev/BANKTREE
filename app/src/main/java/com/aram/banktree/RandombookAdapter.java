@@ -17,9 +17,11 @@ public class RandombookAdapter extends RecyclerView.Adapter {
     ArrayList<Totalbook> mList=null;
     private Intent intent;
     static Context context;
-
-    public RandombookAdapter(ArrayList<Totalbook> mList){
+    int cs;
+    //cs==1이면 마이페이지에서 누른 것, cs==0이면 그 이외
+    public RandombookAdapter(ArrayList<Totalbook> mList, int cs){
         this.mList=mList;
+        this.cs=cs;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView writer;
@@ -47,39 +49,72 @@ public class RandombookAdapter extends RecyclerView.Adapter {
         MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.writer.setText(mList.get(position).getWriter());
         myViewHolder.title.setText(mList.get(position).getTitle());
+        if(cs==0){
+            myViewHolder.random_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent= new Intent(context, BookInfo.class);
+                    intent.putExtra("title",mList.get(position).getTitle());
+                    intent.putExtra("writer",mList.get(position).getWriter());
+                    intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                    intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                    intent.putExtra("page", mList.get(position).getPage());
+                    intent.putExtra("date", mList.get(position).getDate());
+                    context.startActivity(intent);
 
-        myViewHolder.random_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(context, BookInfo.class);
-                intent.putExtra("title",mList.get(position).getTitle());
-                intent.putExtra("writer",mList.get(position).getWriter());
-                intent.putStringArrayListExtra("content", mList.get(position).getContent());
-                intent.putStringArrayListExtra("color", mList.get(position).getColor());
-                intent.putExtra("page", mList.get(position).getPage());
-                intent.putExtra("date", mList.get(position).getDate());
-                context.startActivity(intent);
+                }
+            });
+            myViewHolder.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent= new Intent(context, BookInfo.class);
+                    intent.putExtra("title",mList.get(position).getTitle());
+                    intent.putExtra("writer",mList.get(position).getWriter());
+                    intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                    intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                    intent.putExtra("page", mList.get(position).getPage());
+                    intent.putExtra("date", mList.get(position).getDate());
+                    context.startActivity(intent);
 
-            }
-        });
-        myViewHolder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(context, BookInfo.class);
-                intent.putExtra("title",mList.get(position).getTitle());
-                intent.putExtra("writer",mList.get(position).getWriter());
-                intent.putStringArrayListExtra("content", mList.get(position).getContent());
-                intent.putStringArrayListExtra("color", mList.get(position).getColor());
-                intent.putExtra("page", mList.get(position).getPage());
-                intent.putExtra("date", mList.get(position).getDate());
-                context.startActivity(intent);
-
-            }
-        });
+                }
+            });
+        }
+        else if(cs==1){
+            myViewHolder.random_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent=new Intent(context, EachBook.class);
+                    intent.putExtra("title",mList.get(position).getTitle());
+                    intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                    intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                    intent.putExtra("page", mList.get(position).getPage());
+                    context.startActivity(intent);
+                }
+            });
+            myViewHolder.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent=new Intent(context, EachBook.class);
+                    intent.putExtra("title",mList.get(position).getTitle());
+                    intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                    intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                    intent.putExtra("page", mList.get(position).getPage());
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return mList==null?0:mList.size();
+    }
+
+    public void changedata(ArrayList<Totalbook> mList){
+        if(this.mList!=null){
+            this.mList=null;
+        }
+        this.mList=mList;
+        notifyDataSetChanged();
     }
 }

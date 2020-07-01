@@ -11,8 +11,9 @@
         android:layout_weight="0.2"
         android:layout_marginRight="10sp"
         android:layout_marginLeft="10sp"
+        android:layout_marginBottom="20sp"
         android:text="책제목"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textColor="#000000"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/eachbook_viewpager"

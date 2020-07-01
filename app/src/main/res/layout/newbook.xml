@@ -48,12 +48,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="갤러리"></Button>
-        <Button
-            android:id="@+id/picture"
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="카메라"></Button>
-
+            android:text="카테고리 선택: "
+            android:textColor="#000000"/>
+        <Spinner
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/cat"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginLeft="20sp"
@@ -92,7 +104,7 @@
         <Button
             android:id="@+id/share"
             android:layout_width="wrap_content"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:text="공유"></Button>
     </LinearLayout>
 </LinearLayout>

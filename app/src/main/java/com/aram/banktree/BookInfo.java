@@ -75,7 +75,6 @@ public class BookInfo extends AppCompatActivity {
                         BookInfo.this,
                         writerpage.class);
                 intent.putExtra("wr",writer);
-
                 startActivity(intent);
 
             }

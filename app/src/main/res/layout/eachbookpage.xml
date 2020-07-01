@@ -11,7 +11,11 @@
         android:id="@+id/eachbook_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@null"></TextView>
+        android:background="@null"
+        android:text="글내용"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_margin="20sp"></TextView>
     <TextView
         android:id="@+id/eachbook_page"
         android:text="1"

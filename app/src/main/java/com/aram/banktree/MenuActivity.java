@@ -38,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
     public ArrayList<String> color;
     public String page;
     public String date;
+    public int cat;
     ProgressDialog progressDialog;
 
     @Override
@@ -188,7 +189,7 @@ public class MenuActivity extends AppCompatActivity {
             if(fragment1!=null){
                 //fragment1.addnewbook(title, writer);
                 //fragment1의 method를 사용하는 것으로 이것을 통해 recyclerview에 새로 등록된 책을 추가한다
-                fragment1.addnewbooktorecycler(title, writer, page, content, color, date);
+                fragment1.addnewbooktorecycler(title, writer, page, content, color, date, cat);
             }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){
@@ -219,6 +220,25 @@ public class MenuActivity extends AppCompatActivity {
             }
             if(fragment3!=null){
                 getSupportFragmentManager().beginTransaction().show(fragment3).commit();
+            }
+            if(fragment4!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
+            }
+        }
+        else if(which==3){//마이페이지에서 책 눌러서 본 후
+            if(fragment2==null){
+                fragment2=new Fragment2();
+                getSupportFragmentManager().beginTransaction().add(R.id.container, fragment2).commit();
+            }
+            bottomNavigationView.getMenu().getItem(1).setChecked(true);
+            if(fragment1!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment1).commit();
+            }
+            if(fragment2!=null){
+                getSupportFragmentManager().beginTransaction().show(fragment2).commit();
+            }
+            if(fragment3!=null){
+                getSupportFragmentManager().beginTransaction().hide(fragment3).commit();
             }
             if(fragment4!=null){
                 getSupportFragmentManager().beginTransaction().hide(fragment4).commit();

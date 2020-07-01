@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cat2">
+        <item>전체 보기</item>
+        <item>자기 관리</item>
+        <item>취업/진학</item>
+        <item>일상</item>
+        <item>인간 관계</item>
+        <item>대외활동/창업</item>
+    </string-array>
+</resources>

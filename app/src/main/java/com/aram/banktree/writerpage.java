@@ -43,13 +43,13 @@ public class writerpage extends AppCompatActivity {
         lib_recyclerview.setHasFixedSize(true);
         gridlayoutManager=new GridLayoutManager(this, 3);
         lib_recyclerview.setLayoutManager(gridlayoutManager);
-        randombookAdapter=new RandombookAdapter(mybook);
+        randombookAdapter=new RandombookAdapter(mybook, 1);
         lib_recyclerview.setAdapter(randombookAdapter);
 
         history_recyclerview.setHasFixedSize(true);
         linearlayoutManager=new LinearLayoutManager(this);
         history_recyclerview.setLayoutManager(linearlayoutManager);
-        historyAdapter=new HistoryAdapter(mybook);
+        historyAdapter=new HistoryAdapter(mybook, 1);
         history_recyclerview.setAdapter(historyAdapter);
 
     }

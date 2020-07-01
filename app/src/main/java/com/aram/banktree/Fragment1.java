@@ -107,6 +107,7 @@ public class Fragment1 extends Fragment {
     NewbookAdapter newbookAdapter;
     GridLayoutManager gridLayout;
     RandombookAdapter randombookAdapter;
+    Spinner home_spinner;
 
     //ProgressDialog progressDialog;
     public Fragment1(){}
@@ -120,6 +121,8 @@ public class Fragment1 extends Fragment {
         View v=inflater.inflate(R.layout.fragment1, container, false);
         new_book=(RecyclerView) v.findViewById(R.id.new_book);
         random_book=(RecyclerView) v.findViewById(R.id.random_book);
+        home_spinner=(Spinner)v.findViewById(R.id.home_spinner);
+
         twenty=ManageTotalbook.getInstance().gettwenty();
         //twenty는 신규 책 목록을 위한 것으로 20개만 보이도록 하기 위해서 20개만 가지고 오는 것
         totalbook=ManageTotalbook.getInstance().getTotalbook_total();
@@ -142,14 +145,31 @@ public class Fragment1 extends Fragment {
 
         //randombookAdapter는 랜덤 책 전체를 보여주는 recyclerview를 위한 Adapter
         //randombook recyclerview는 Gridlayout
-        randombookAdapter=new RandombookAdapter(totalbook);
+        randombookAdapter=new RandombookAdapter(totalbook, 0);
         random_book.setAdapter(randombookAdapter);
+
+        home_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    randombookAdapter.changedata(ManageTotalbook.getInstance().getTotalbook_total());
+                }
+                else{
+                    randombookAdapter.changedata(ManageTotalbook.getInstance().getwantcat(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return v;
     }
     //이 method는 새로운 전자책 등록시에 오는 method로 Totalbook class로 firebase에 등록
     //recyclerview에 새롭게 추가한다
-    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date){
+    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date, int cat){
         newbook=new Totalbook();
         newbook.setTitle(title);
         newbook.setWriter(writer);
@@ -157,8 +177,10 @@ public class Fragment1 extends Fragment {
         newbook.setContent(content);
         newbook.setColor(color);
         newbook.setDate(date);
+        newbook.setCat(cat);
         totalbook.add(newbook);
         twenty.add(newbook);
+        home_spinner.setSelection(0);
         newbookAdapter.notifyDataSetChanged();
         randombookAdapter.notifyDataSetChanged();
         //이 작업을 통해서 ManageTotalbook의 Totalbook_total에도 새로 추가된 항목이 add된다

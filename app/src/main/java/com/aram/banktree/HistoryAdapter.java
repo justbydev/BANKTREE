@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,16 +17,20 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     ArrayList<Totalbook> mList;
     static Context context;
     private Intent intent;
-    public HistoryAdapter(ArrayList<Totalbook> mList){
+    int cs;//cs==0이면 책읽기에서 누른 것, cs==1이면 마이페이지에서 누른 것
+    public HistoryAdapter(ArrayList<Totalbook> mList, int cs){
         this.mList=mList;
+        this.cs=cs;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView his_date;
         TextView his_title;
+        LinearLayout his_total;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             his_date=itemView.findViewById(R.id.his_date);
             his_title=itemView.findViewById(R.id.his_title);
+            his_total=itemView.findViewById(R.id.his_total);
             context=itemView.getContext();
         }
     }
@@ -49,26 +54,33 @@ public class HistoryAdapter extends RecyclerView.Adapter {
         myViewHolder.his_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(context, BookInfo.class);
+                intent=new Intent(context, EachBook.class);
                 intent.putExtra("title",mList.get(pos).getTitle());
-                intent.putExtra("writer",mList.get(pos).getWriter());
                 intent.putStringArrayListExtra("content", mList.get(pos).getContent());
                 intent.putStringArrayListExtra("color", mList.get(pos).getColor());
                 intent.putExtra("page", mList.get(pos).getPage());
-                intent.putExtra("date", mList.get(pos).getDate());
                 context.startActivity(intent);
             }
         });
         myViewHolder.his_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(context, BookInfo.class);
+                intent=new Intent(context, EachBook.class);
                 intent.putExtra("title",mList.get(pos).getTitle());
-                intent.putExtra("writer",mList.get(pos).getWriter());
                 intent.putStringArrayListExtra("content", mList.get(pos).getContent());
                 intent.putStringArrayListExtra("color", mList.get(pos).getColor());
                 intent.putExtra("page", mList.get(pos).getPage());
-                intent.putExtra("date", mList.get(pos).getDate());
+                context.startActivity(intent);
+            }
+        });
+        myViewHolder.his_total.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(context, EachBook.class);
+                intent.putExtra("title",mList.get(pos).getTitle());
+                intent.putStringArrayListExtra("content", mList.get(pos).getContent());
+                intent.putStringArrayListExtra("color", mList.get(pos).getColor());
+                intent.putExtra("page", mList.get(pos).getPage());
                 context.startActivity(intent);
             }
         });
