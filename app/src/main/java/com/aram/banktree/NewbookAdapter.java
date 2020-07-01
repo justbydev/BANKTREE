@@ -64,6 +64,10 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                 intent= new Intent(context, BookInfo.class);
                 intent.putExtra("title",mList.get(position).getTitle());
                 intent.putExtra("writer",mList.get(position).getWriter());
+                intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                intent.putExtra("page", mList.get(position).getPage());
+                intent.putExtra("date", mList.get(position).getDate());
                 context.startActivity(intent);
             }
         });
@@ -73,6 +77,10 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                 intent=new Intent(context, BookInfo.class);
                 intent.putExtra("title", mList.get(position).getTitle());
                 intent.putExtra("writer", mList.get(position).getWriter());
+                intent.putStringArrayListExtra("content", mList.get(position).getContent());
+                intent.putStringArrayListExtra("color", mList.get(position).getColor());
+                intent.putExtra("page", mList.get(position).getPage());
+                intent.putExtra("date", mList.get(position).getDate());
                 context.startActivity(intent);
             }
         });

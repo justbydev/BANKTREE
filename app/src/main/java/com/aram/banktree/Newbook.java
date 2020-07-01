@@ -16,9 +16,11 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,14 +36,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class Newbook extends AppCompatActivity {
     Button color;
     Button image;
-    Button picture;
     //Button costset_button;
     Button commuteset_button;
     //Button mentoragree_button;
@@ -51,6 +54,7 @@ public class Newbook extends AppCompatActivity {
     EditText book_title;
     ImageView book_content;
     EditText content_write;
+    Spinner category;
     public static Context newbookcontext;
     int contentdefaultcolor;
     public int costset=0;
@@ -67,6 +71,7 @@ public class Newbook extends AppCompatActivity {
     int nowpage=0;*/
     Viewpagerbase viewpagerbase;
     int nowpage=2;
+    int cat=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +79,6 @@ public class Newbook extends AppCompatActivity {
         newbookcontext=this;
         color=(Button)findViewById(R.id.color);
         image=(Button)findViewById(R.id.image);
-        picture=(Button)findViewById(R.id.picture);
         //costset_button=(Button)findViewById(R.id.costset_button);
         commuteset_button=(Button)findViewById(R.id.commuteset_button);
         //mentoragree_button=(Button)findViewById(R.id.mentoragree_button);
@@ -84,6 +88,7 @@ public class Newbook extends AppCompatActivity {
         book_title=(EditText)findViewById(R.id.book_title);
         book_content=(ImageView)findViewById(R.id.book_content);
         content_write=(EditText)findViewById(R.id.content_write);
+        category=(Spinner)findViewById(R.id.category);
 
         //글추가 눌렀을 때 옆으로 넘기게 fragment 추가되는 역할하는 viewpagerbase
         viewpagerbase=(Viewpagerbase)this.getSupportFragmentManager().findFragmentById(R.id.viewpagerbase);
@@ -95,8 +100,19 @@ public class Newbook extends AppCompatActivity {
 
         contentdefaultcolor= ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
 
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cat=position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         image.setOnClickListener(buttonClickListener);
-        picture.setOnClickListener(buttonClickListener);
         color.setOnClickListener(buttonClickListener);
         page_add.setOnClickListener(buttonClickListener);
         //costset_button.setOnClickListener(buttonClickListener);
@@ -124,14 +140,6 @@ public class Newbook extends AppCompatActivity {
                             imageintent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                             imageintent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(imageintent, REQUEST_IMAGE_CODE);
-                        }
-                    }
-                    break;
-                case R.id.picture://카메라와 연결
-                    if(Build.VERSION.SDK_INT>=23){
-                        int permissioncamera=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.CAMERA);
-                        if(permissioncamera==PackageManager.PERMISSION_DENIED){
-                            ActivityCompat.requestPermissions(Newbook.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
                         }
                     }
                     break;
@@ -163,6 +171,11 @@ public class Newbook extends AppCompatActivity {
                     return;
                 case R.id.share://공유 버튼 누르는 경우 Bookcontent class 이용해서
                     //firebase에 저장하고 Menuactivity에서 which를 1로 만듬
+
+                    if(cat==0){
+                        Toast.makeText(Newbook.this, "카테고리를 선택해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     DatabaseReference contentreference= FirebaseDatabase.getInstance().getReference("Content");
                     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
@@ -183,13 +196,20 @@ public class Newbook extends AppCompatActivity {
                         bookcontent.setColor(viewpagerbase.getcolor(i));
                         color.add(Integer.toString(viewpagerbase.getcolor(i)));
                     }
+                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                    Calendar cal=Calendar.getInstance();
+                    bookcontent.setDate(simpleDateFormat.format(cal.getTime()));
+                    String date=simpleDateFormat.format(cal.getTime());
+                    bookcontent.setCat(cat);
                     contentreference.push().setValue(bookcontent);
                     ((MenuActivity)MenuActivity.menucontext).title=title;
                     ((MenuActivity)MenuActivity.menucontext).writer=email;
                     ((MenuActivity)MenuActivity.menucontext).page=page;
                     ((MenuActivity)MenuActivity.menucontext).content=content;
                     ((MenuActivity)MenuActivity.menucontext).color=color;
+                    ((MenuActivity)MenuActivity.menucontext).date=date;
                     ((MenuActivity)MenuActivity.menucontext).which=1;
+                    ((MenuActivity)MenuActivity.menucontext).cat=cat;
                     finish();
                     return;
                 default:
@@ -259,28 +279,6 @@ public class Newbook extends AppCompatActivity {
                     builder.create().show();
                 }
                 break;
-            case REQUEST_CAMERA_CODE:
-                String permission=permissions[0];
-                int grantResult=grantResults[0];
-                int cameraflag=0;
-                if(permission.equals(Manifest.permission.CAMERA)){
-                    if(grantResult==PackageManager.PERMISSION_GRANTED){
-                        cameraflag=1;
-                    }
-                }
-                if (cameraflag == 0) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Newbook.this);
-                    builder.setTitle("알림");
-                    builder.setMessage("[설정]->[권한]에서\n권한을 허용해주세요.\n");
-                    builder.setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
-                        }
-                    });
-                    builder.create().show();
-                }
-                return;
             default:
                 break;
         }
@@ -301,8 +299,6 @@ public class Newbook extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                break;
-            case REQUEST_CAMERA_CODE:
                 break;
             default:
                 break;

@@ -65,6 +65,16 @@ public class ManageTotalbook {
                             page=jsonObject.getString("§page");
                         }
                         totalbook.setPage(page);
+                        String date=jsonObject.optString("date", null);
+                        if(date==null){
+                            date=jsonObject.getString("§date");
+                        }
+                        totalbook.setDate(date);
+                        int cat=jsonObject.optInt("cat", -1);
+                        if(cat==-1){
+                            cat=jsonObject.getInt("§cat");
+                        }
+                        totalbook.setCat(cat);
                         JSONArray color=jsonObject.optJSONArray("color");
                         if(color==null){
                             color=jsonObject.getJSONArray("§color");
@@ -129,7 +139,28 @@ public class ManageTotalbook {
         }
         return tmp;
     }
+    //원하는 작가의 책 가져오기 위한 getter
+    public ArrayList<Totalbook> getwantwriter(String writer){
+        ArrayList<Totalbook> temp=new ArrayList<>();
+        for(int i=0; i<Totalbook_total.size(); i++){
+            if(writer.equals(Totalbook_total.get(i).getWriter())){
+                temp.add(Totalbook_total.get(i));
+            }
+        }
+        return temp;
+    }
+
+    public ArrayList<Totalbook> getwantcat(int cat){
+        ArrayList<Totalbook> temp=new ArrayList<>();
+        for(int i=0; i<Totalbook_total.size(); i++){
+            if(Totalbook_total.get(i).getCat()==cat){
+                temp.add(Totalbook_total.get(i));
+            }
+        }
+        return temp;
+    }
     public void setTotalbook_total(ArrayList<Totalbook> totalbook_total) {
         Totalbook_total = totalbook_total;
     }
+
 }
