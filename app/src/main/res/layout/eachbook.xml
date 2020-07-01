@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="4">
+    <TextView
+        android:id="@+id/eachbook_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:text="책제목"
+        android:textSize="30sp"
+        android:textColor="#000000"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/eachbook_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"/>
+    <Button
+        android:id="@+id/eachbook_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:text="닫기"
+        android:textColor="#000000"
+        android:layout_gravity="right"
+        android:layout_marginRight="10sp"/>
+</LinearLayout>

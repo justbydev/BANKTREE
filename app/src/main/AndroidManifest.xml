@@ -30,6 +30,7 @@
         <activity android:name=".EachChat" />
         <activity android:name=".writerpage"/>
         <activity android:name=".BookInfo" />
+        <activity android:name=".EachBook"/>
     </application>
 
 </manifest>

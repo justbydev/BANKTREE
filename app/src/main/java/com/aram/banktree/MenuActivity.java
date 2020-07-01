@@ -168,7 +168,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if(which==0){//글 추가 누른 후 그냥 취소하거나 back button 누르면 오게 되는 case
+        if(which==0){//글 추가 누른 후 그냥 취소하거나 back button 누르면 오게 되는 case, 평상이 back button 누르면 오는 case
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){
                 getSupportFragmentManager().beginTransaction().show(fragment1).commit();
