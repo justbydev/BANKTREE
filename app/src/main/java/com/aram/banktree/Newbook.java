@@ -34,7 +34,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -183,12 +185,17 @@ public class Newbook extends AppCompatActivity {
                         bookcontent.setColor(viewpagerbase.getcolor(i));
                         color.add(Integer.toString(viewpagerbase.getcolor(i)));
                     }
+                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                    Calendar cal=Calendar.getInstance();
+                    bookcontent.setDate(simpleDateFormat.format(cal.getTime()));
+                    String date=simpleDateFormat.format(cal.getTime());
                     contentreference.push().setValue(bookcontent);
                     ((MenuActivity)MenuActivity.menucontext).title=title;
                     ((MenuActivity)MenuActivity.menucontext).writer=email;
                     ((MenuActivity)MenuActivity.menucontext).page=page;
                     ((MenuActivity)MenuActivity.menucontext).content=content;
                     ((MenuActivity)MenuActivity.menucontext).color=color;
+                    ((MenuActivity)MenuActivity.menucontext).date=date;
                     ((MenuActivity)MenuActivity.menucontext).which=1;
                     finish();
                     return;

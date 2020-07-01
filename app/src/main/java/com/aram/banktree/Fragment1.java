@@ -149,17 +149,23 @@ public class Fragment1 extends Fragment {
     }
     //이 method는 새로운 전자책 등록시에 오는 method로 Totalbook class로 firebase에 등록
     //recyclerview에 새롭게 추가한다
-    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color){
+    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date){
         newbook=new Totalbook();
         newbook.setTitle(title);
         newbook.setWriter(writer);
         newbook.setPage(page);
         newbook.setContent(content);
         newbook.setColor(color);
+        newbook.setDate(date);
         totalbook.add(newbook);
         twenty.add(newbook);
         newbookAdapter.notifyDataSetChanged();
         randombookAdapter.notifyDataSetChanged();
+        //이 작업을 통해서 ManageTotalbook의 Totalbook_total에도 새로 추가된 항목이 add된다
+        //그 이유는 fragment1의 totalbook을 받아올 때 ManageTotalbook.getInstance().getTotalbook()을 하게 되는데
+        //이 method는 ManageTotalbook의 Totalbook_total 자체를 그냥 return하게 된다
+        //그러면 ManageTotalbook은 singleton class이기 때문에 메모리 공간을 하나만 차지하게 되고 따라서 같은 메모리 주소를 가리키게 된다
+        //따라서 totalbook 역시 같은 곳을 가리키게 되므로 totalbook.add를 하게 되면 동시에 ManageTotalbook의 Totalbook_total에도 add된다
     }
 
 }

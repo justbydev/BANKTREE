@@ -37,6 +37,7 @@ public class MenuActivity extends AppCompatActivity {
     public ArrayList<String> content;
     public ArrayList<String> color;
     public String page;
+    public String date;
     ProgressDialog progressDialog;
 
     @Override
@@ -187,7 +188,7 @@ public class MenuActivity extends AppCompatActivity {
             if(fragment1!=null){
                 //fragment1.addnewbook(title, writer);
                 //fragment1의 method를 사용하는 것으로 이것을 통해 recyclerview에 새로 등록된 책을 추가한다
-                fragment1.addnewbooktorecycler(title, writer, page, content, color);
+                fragment1.addnewbooktorecycler(title, writer, page, content, color, date);
             }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){

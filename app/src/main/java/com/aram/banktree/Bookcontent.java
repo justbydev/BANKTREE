@@ -9,6 +9,7 @@ public class Bookcontent {
     String title;
     ArrayList<String> content;
     ArrayList<Integer> color;
+    String date;
     //int []color;
     //Bitmap[]images;
     int page;
@@ -46,6 +47,13 @@ public class Bookcontent {
         this.color.add(color);
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
     /*public Bitmap[] getImages() {
         return images;
     }

@@ -9,6 +9,7 @@ public class Totalbook {
     private ArrayList<String> content;
     private ArrayList<String> color;
     private String page;
+    private String date;
 
     public Totalbook() {
 
@@ -52,5 +53,13 @@ public class Totalbook {
 
     public void setColor(ArrayList<String> color) {
         this.color = color;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

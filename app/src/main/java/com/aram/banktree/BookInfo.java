@@ -31,6 +31,7 @@ public class BookInfo extends AppCompatActivity {
     String title;
     String writer;
     String page;
+    String date;
     ArrayList<String> content;
     ArrayList<String> color;
 
@@ -59,6 +60,7 @@ public class BookInfo extends AppCompatActivity {
             page=extras.getString("page");
             content=extras.getStringArrayList("content");
             color=extras.getStringArrayList("color");
+            date=extras.getString("date");
         }
         Text_title.setText("제목: " + title);
         Text_writer.setText("작가: " + writer);
