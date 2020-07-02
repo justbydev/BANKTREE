@@ -21,7 +21,9 @@
         <EditText
             android:id="@+id/book_title"
             android:layout_width="320sp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="16">
         </EditText>
     </LinearLayout>
     <fragment
@@ -42,12 +44,7 @@
             android:id="@+id/color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="단색"></Button>
-        <Button
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="갤러리"></Button>
+            android:text="테두리색"></Button>
 
 
     </LinearLayout>
@@ -92,9 +89,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="200sp"
-        android:layout_marginRight="10sp"
+        android:layout_marginRight="20sp"
         android:layout_weight="0.01">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"

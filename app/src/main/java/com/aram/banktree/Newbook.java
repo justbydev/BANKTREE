@@ -44,7 +44,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class Newbook extends AppCompatActivity {
     Button color;
-    Button image;
     //Button costset_button;
     Button commuteset_button;
     //Button mentoragree_button;
@@ -78,7 +77,6 @@ public class Newbook extends AppCompatActivity {
         setContentView(R.layout.newbook);
         newbookcontext=this;
         color=(Button)findViewById(R.id.color);
-        image=(Button)findViewById(R.id.image);
         //costset_button=(Button)findViewById(R.id.costset_button);
         commuteset_button=(Button)findViewById(R.id.commuteset_button);
         //mentoragree_button=(Button)findViewById(R.id.mentoragree_button);
@@ -112,7 +110,6 @@ public class Newbook extends AppCompatActivity {
             }
         });
 
-        image.setOnClickListener(buttonClickListener);
         color.setOnClickListener(buttonClickListener);
         page_add.setOnClickListener(buttonClickListener);
         //costset_button.setOnClickListener(buttonClickListener);
@@ -128,7 +125,7 @@ public class Newbook extends AppCompatActivity {
         public void onClick(View v) {
             int id=v.getId();
             switch(id){
-                case R.id.image://앨범에서 이미지 선택
+                /*case R.id.image://앨범에서 이미지 선택
                     if(Build.VERSION.SDK_INT>=23){//버전이 23이상인 경우 권한 체크
                         int permissionReadStorage=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.READ_EXTERNAL_STORAGE);
                         int permissionWriteStorage=ContextCompat.checkSelfPermission(Newbook.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -142,7 +139,7 @@ public class Newbook extends AppCompatActivity {
                             startActivityForResult(imageintent, REQUEST_IMAGE_CODE);
                         }
                     }
-                    break;
+                    break;*/
                 case R.id.color://단색 선택 연결
                     openColorPicker();
                     return;
@@ -183,7 +180,7 @@ public class Newbook extends AppCompatActivity {
                     String title=book_title.getText().toString();
                     int totalpage=viewpagerbase.gettotalpage();
                     String page=Integer.toString(totalpage);
-                    Bookcontent bookcontent=new Bookcontent(email, totalpage);
+                    Bookcontent bookcontent=new Bookcontent(ManageTotalbook.getInstance().getFakename(), totalpage);
                     bookcontent.setTitle(title);
                     ArrayList<String> content;
                     ArrayList<String> color;
@@ -210,6 +207,7 @@ public class Newbook extends AppCompatActivity {
                     ((MenuActivity)MenuActivity.menucontext).date=date;
                     ((MenuActivity)MenuActivity.menucontext).which=1;
                     ((MenuActivity)MenuActivity.menucontext).cat=cat;
+                    ((MenuActivity)MenuActivity.menucontext).fakename=ManageTotalbook.getInstance().getFakename();
                     finish();
                     return;
                 default:
@@ -240,7 +238,7 @@ public class Newbook extends AppCompatActivity {
     }
 
     //권한 체크 이후 들어오게 되는 override method
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch(requestCode){
@@ -303,7 +301,7 @@ public class Newbook extends AppCompatActivity {
             default:
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

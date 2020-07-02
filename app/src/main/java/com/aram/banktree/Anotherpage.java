@@ -4,12 +4,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +41,29 @@ public class Anotherpage extends Fragment {
         else{
             page.setText(nowpage);
         }
+
+        content_write.addTextChangedListener(new TextWatcher() {
+            String previous;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                previous=s.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(content_write.getLineCount()>=16){
+                    content_write.setText(previous);
+                    content_write.setSelection(content_write.length());
+                    Toast.makeText(getContext(), "페이지당 최대 15줄입니다", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return v;
     }
     public void changecolor(){

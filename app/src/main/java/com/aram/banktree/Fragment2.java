@@ -1,5 +1,6 @@
 package com.aram.banktree;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ public class Fragment2 extends Fragment {
     RecyclerView lib_recyclerview;
     String writer;
     ArrayList<Totalbook> mybook;
+    String me;
 
     RecyclerView.LayoutManager gridlayoutManager;
     RandombookAdapter randombookAdapter;
@@ -44,16 +46,17 @@ public class Fragment2 extends Fragment {
         history_recyclerview=v.findViewById(R.id.history_recyclerview);
         lib_recyclerview=v.findViewById(R.id.lib_recyclerview);
 
-        String me=FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
-        writerid.setText(me);
+        me=ManageTotalbook.getInstance().getFakename();
+
+        writerid.setText(ManageTotalbook.getInstance().getFakename());
         mybook=new ArrayList<>();
         mybook=ManageTotalbook.getInstance().getwantwriter(me);
 
         writer_bookcount.setText("보유 권수: "+Integer.toString(mybook.size())+"권");
 
         lib_recyclerview.setHasFixedSize(true);
-        gridlayoutManager=new GridLayoutManager(getContext(), 3);
+        gridlayoutManager=new GridLayoutManager(getContext(), 2);
         lib_recyclerview.setLayoutManager(gridlayoutManager);
         randombookAdapter=new RandombookAdapter(mybook, 1);
         lib_recyclerview.setAdapter(randombookAdapter);
@@ -68,4 +71,5 @@ public class Fragment2 extends Fragment {
 
         return v;
     }
+
 }

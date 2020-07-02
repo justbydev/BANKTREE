@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="105sp"
-    android:layout_height="230sp"
+    android:layout_width="205sp"
+    android:layout_height="330sp"
     android:orientation="vertical"
     android:layout_marginTop="30sp"
     android:layout_marginLeft="15sp"
     android:layout_marginRight="15sp">
-    <TextView
-        android:id="@+id/writer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="작가 이름은 여기에"
-        android:textSize="10sp"
-        android:clickable="true"></TextView>
-
-    <Button
-        android:id="@+id/chatbutton"
-        android:layout_width="50sp"
-        android:layout_height="30sp"
-        android:text="채팅"
-        android:textSize="7sp"></Button>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,22 +14,33 @@
             android:id="@+id/cover_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="#F3F781"
             android:clickable="true"></ImageView>
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="책제목은 여기에"
             android:maxLength="12"
             android:singleLine="true"
             android:ellipsize="marquee"
-            android:layout_marginTop="30sp"
+            android:layout_margin="10sp"
             android:gravity="center_horizontal"
             android:textSize="10sp"
             android:textColor="#000000"
-            android:layout_alignParentTop="true"
-
+            android:foregroundGravity="center_horizontal"
+            android:background="#FFFFFF"
+            android:clickable="true"></TextView>
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작가 이름은 여기에"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30sp"
+            android:gravity="center_horizontal"
+            android:textSize="10sp"
+            android:textColor="#000000"
             android:clickable="true"></TextView>
     </RelativeLayout>
 </LinearLayout>

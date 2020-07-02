@@ -90,4 +90,12 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mList==null?0:mList.size();
     }
+
+    public void changedata(ArrayList<Totalbook> mList){
+        if(this.mList!=null){
+            this.mList=null;
+        }
+        this.mList=mList;
+        notifyDataSetChanged();
+    }
 }

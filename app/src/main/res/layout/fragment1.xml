@@ -17,7 +17,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/new_book"
             android:layout_width="match_parent"
-            android:layout_height="300sp"/>
+            android:layout_height="400sp"/>
 
         <Spinner
             android:id="@+id/home_spinner"
@@ -27,7 +27,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/random_book"
             android:layout_width="match_parent"
-            android:layout_height="300sp"/>
+            android:layout_height="400sp"/>
     </LinearLayout>
 </ScrollView>
 
