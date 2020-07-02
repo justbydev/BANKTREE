@@ -41,7 +41,7 @@ public class writerpage extends AppCompatActivity {
         writer_bookcount.setText("보유 권수: "+Integer.toString(mybook.size())+"권");
 
         lib_recyclerview.setHasFixedSize(true);
-        gridlayoutManager=new GridLayoutManager(this, 3);
+        gridlayoutManager=new GridLayoutManager(this, 2);
         lib_recyclerview.setLayoutManager(gridlayoutManager);
         randombookAdapter=new RandombookAdapter(mybook, 1);
         lib_recyclerview.setAdapter(randombookAdapter);

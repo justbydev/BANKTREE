@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -53,13 +54,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText editTextPassword2;
     TextView passwordequaltext;
     EditText editName;
+    EditText writerName;
     RadioGroup genderradio;
     DatePicker birthpicker;
     Button buttonSignup;
     Button validateemailbutton;
+    Button writerbutton;
+    TextView writererror;
     TextView textviewSingin;
     TextView textviewMessage;
     ProgressDialog progressDialog;
+    CheckBox agree_check;
     private String email;
     private String password;
     private String repassword;
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int passwordcheck=0;
     int passwordequal=0;
     int emailvalidatebutton=0;
+    int writerequal=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +102,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPassword2=(EditText)findViewById(R.id.editTextPassword2);
         passwordequaltext=(TextView)findViewById(R.id.passwordequaltext);
         editName=(EditText)findViewById(R.id.editTextName);
+        writerName=(EditText)findViewById(R.id.editWriterName);
         genderradio=(RadioGroup)findViewById(R.id.genderradio);
         birthpicker=(DatePicker)findViewById(R.id.birthpicker);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        agree_check=(CheckBox)findViewById(R.id.agree_check);
+        writerbutton=(Button)findViewById(R.id.writernameequalbutton);
+        writererror=(TextView)findViewById(R.id.writererror);
         progressDialog = new ProgressDialog(this);
+
+
+        writerbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String tmp=writerName.getText().toString().trim();
+                if(TextUtils.isEmpty(tmp)){
+                    Toast.makeText(MainActivity.this, "필명을 입력해 주세요", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    DatabaseReference wrequal=FirebaseDatabase.getInstance().getReference("writername");
+                    wrequal.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int flag=0;
+                            for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                if(snapshot.getValue()!=null){
+                                    if(snapshot.getValue().equals(tmp)){
+                                        flag=1;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(flag==0){
+                                writerequal=1;
+                                writererror.setText("사용가능한 필명입니다\n");
+                            }
+                            else{
+                                writerequal=0;
+                                writererror.setText("이미 사용중인 필명입니다\n");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
 
         //이메일 형식에 맞는지 체크, 이메일 형식에 맞으면 파란색으로 보임
         editTextEmail.addTextChangedListener(new TextWatcher() {
@@ -229,55 +280,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     RadioButton rd=(RadioButton)findViewById(genderradio.getCheckedRadioButtonId());
                     gender=rd.getText().toString().trim();
                 }
+                final String writername=writerName.getText().toString().trim();
                 final int year=birthpicker.getYear();
                 final int month=birthpicker.getMonth()+1;
                 final int day=birthpicker.getDayOfMonth();
-                if(check_empty(email, password, repassword, name, gender)){
-                    if(passwordcheck==1 && passwordequal==1){
-                        if(emailcheck==1 && emailequal==0 && emailvalidatebutton==1) {
-                            //email과 password가 제대로 입력되어 있다면 계속 진행된다.
-                            progressDialog.setMessage("등록중입니다. 기다려 주세요...");
-                            progressDialog.show();
-                            final String finalGender = gender;
-                            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if(task.isSuccessful()){
-                                                DatabaseReference memberreference=FirebaseDatabase.getInstance().getReference("Member");
-                                                DatabaseReference emailreference=FirebaseDatabase.getInstance().getReference("Memberemail");
-                                                Member member= new Member();
-                                                Memberemail EM=new Memberemail();
-                                                member.setEmail(email);
-                                                member.setName(name);
-                                                member.setGender(finalGender);
-                                                member.setYear(year);
-                                                member.setMonth(month);
-                                                member.setDay(day);
-                                                EM.setEmail(email);
-                                                memberreference.push().setValue(member);
-                                                emailreference.push().setValue(email);
-                                                //회원가입을 하면 우선 firebase에 회원에 대한 정보를 저장
-                                                //firebase 저장시 Member class를 사용
-                                                //회원가입 후 자동 로그인이 아니라 다시 한번 로그인하도록 유도하기 위해 signOut()시키고
-                                                //다시 LoginActivity로 이동시킨다
-                                                firebaseAuth.signOut();
-                                                finish();
-                                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                if(check_empty(email, password, repassword, name, gender, writername)){
+                    if(writerequal==1){
+                        if(passwordcheck==1 && passwordequal==1){
+                            if(emailcheck==1 && emailequal==0 && emailvalidatebutton==1) {
+                                //email과 password가 제대로 입력되어 있다면 계속 진행된다.
+                                progressDialog.setMessage("등록중입니다. 기다려 주세요...");
+                                progressDialog.show();
+                                final String finalGender = gender;
+                                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(task.isSuccessful()){
+                                                    DatabaseReference memberreference=FirebaseDatabase.getInstance().getReference("Member");
+                                                    DatabaseReference emailreference=FirebaseDatabase.getInstance().getReference("Memberemail");
+                                                    DatabaseReference writerreference=FirebaseDatabase.getInstance().getReference("writername");
+                                                    Member member= new Member();
+                                                    Memberemail EM=new Memberemail();
+                                                    member.setEmail(email);
+                                                    member.setName(name);
+                                                    member.setGender(finalGender);
+                                                    member.setYear(year);
+                                                    member.setMonth(month);
+                                                    member.setDay(day);
+                                                    member.setWritername(writername);
+                                                    EM.setEmail(email);
+                                                    memberreference.push().setValue(member);
+                                                    emailreference.push().setValue(email);
+                                                    String tmp=email.replace(".", "-");
+                                                    writerreference.child(tmp).setValue(writername);
+                                                    DatabaseReference t=FirebaseDatabase.getInstance().getReference(tmp);
+                                                    t.push().setValue(writername);
+                                                    //회원가입을 하면 우선 firebase에 회원에 대한 정보를 저장
+                                                    //firebase 저장시 Member class를 사용
+                                                    //회원가입 후 자동 로그인이 아니라 다시 한번 로그인하도록 유도하기 위해 signOut()시키고
+                                                    //다시 LoginActivity로 이동시킨다
+                                                    firebaseAuth.signOut();
+                                                    finish();
+                                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                }
+                                                else{
+                                                    textviewMessage.setText("이미 가입된 이메일입니다\n");
+                                                }
+                                                progressDialog.dismiss();
                                             }
-                                            else{
-                                                textviewMessage.setText("이미 가입된 이메일입니다\n");
-                                            }
-                                            progressDialog.dismiss();
-                                        }
-                                    });
+                                        });
+                            }
+                            else{
+                                textviewMessage.setText("이메일 인증을 받으셔야 합니다.\n");
+                            }
                         }
                         else{
-                            textviewMessage.setText("이메일 인증을 받으셔야 합니다.\n");
+                            textviewMessage.setText("올바른 비밀번호를 입력해 주세요\n");
                         }
                     }
                     else{
-                        textviewMessage.setText("올바른 비밀번호를 입력해 주세요\n");
+                        textviewMessage.setText("필명 중복확인을 해주세요\n");
                     }
                 }
             }
@@ -288,9 +351,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textviewSingin.setOnClickListener(this);
     }
     //모든 것을 입력해야 하므로 한 군데라도 빈 곳이 있으면 알려주는 method
-    private boolean check_empty(String email, String password, String repassword, String name, String gender){
+    private boolean check_empty(String email, String password, String repassword, String name, String gender, String writername){
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this, "성명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(writername)){
+            Toast.makeText(this, "필명을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TextUtils.isEmpty(email)){
@@ -307,6 +374,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(TextUtils.isEmpty(gender)){
             Toast.makeText(this, "성별을 체크해 주세요.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!agree_check.isChecked()){
+            Toast.makeText(this, "개인정보 수집에 동의해 주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

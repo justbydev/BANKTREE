@@ -140,7 +140,7 @@ public class Fragment1 extends Fragment {
         new_book.setAdapter(newbookAdapter);
 
         random_book.setHasFixedSize(true);
-        gridLayout=new GridLayoutManager(getContext(), 3);
+        gridLayout=new GridLayoutManager(getContext(), 2);
         random_book.setLayoutManager(gridLayout);
 
         //randombookAdapter는 랜덤 책 전체를 보여주는 recyclerview를 위한 Adapter
@@ -172,7 +172,7 @@ public class Fragment1 extends Fragment {
     public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date, int cat){
         newbook=new Totalbook();
         newbook.setTitle(title);
-        newbook.setWriter(writer);
+        newbook.setWriter(ManageTotalbook.getInstance().getFakename());
         newbook.setPage(page);
         newbook.setContent(content);
         newbook.setColor(color);

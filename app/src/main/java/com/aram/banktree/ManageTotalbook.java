@@ -2,6 +2,7 @@ package com.aram.banktree;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +21,7 @@ public class ManageTotalbook {
     private static ManageTotalbook manageTotalbook=null;
     ArrayList<Totalbook> Totalbook_total;
     Totalbook totalbook;
-
+    String fakename;
     public static ManageTotalbook getInstance(){
         if(manageTotalbook==null){
             manageTotalbook=new ManageTotalbook();
@@ -116,10 +117,35 @@ public class ManageTotalbook {
 
             }
         });
+
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            String temp=email.replace(".", "-");
+            DatabaseReference d=FirebaseDatabase.getInstance().getReference(temp);
+            d.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        fakename=snapshot.getValue().toString();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     public ArrayList<Totalbook> getTotalbook_total() {
         return Totalbook_total;
+    }
+    public String getFakename(){
+        return fakename;
+    }
+    public void setFakename(String fakename){
+        this.fakename=fakename;
     }
 
     //신규 책의 책 목록 20개만을 가져오기 위한 getter

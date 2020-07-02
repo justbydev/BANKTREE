@@ -8,6 +8,7 @@ public class Member {
     int year;
     int month;
     int day;
+    String writername;
 
     public Member() {
     }
@@ -58,5 +59,13 @@ public class Member {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public String getWritername() {
+        return writername;
+    }
+
+    public void setWritername(String writername) {
+        this.writername = writername;
     }
 }

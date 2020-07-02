@@ -19,6 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.aram.banktree.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -39,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
     public String page;
     public String date;
     public int cat;
+    public String fakename;
     ProgressDialog progressDialog;
 
     @Override
@@ -57,6 +63,22 @@ public class MenuActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null){
             logbutton.setText("로그아웃");
+            String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            String temp=email.replace(".", "-");
+            DatabaseReference d= FirebaseDatabase.getInstance().getReference(temp);
+            d.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        ManageTotalbook.getInstance().setFakename(snapshot.getValue().toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
         else{
             logbutton.setText("로그인");
@@ -189,7 +211,12 @@ public class MenuActivity extends AppCompatActivity {
             if(fragment1!=null){
                 //fragment1.addnewbook(title, writer);
                 //fragment1의 method를 사용하는 것으로 이것을 통해 recyclerview에 새로 등록된 책을 추가한다
+
                 fragment1.addnewbooktorecycler(title, writer, page, content, color, date, cat);
+                if(fragment2!=null){
+                    fragment2.randombookAdapter.changedata(ManageTotalbook.getInstance().getwantwriter(ManageTotalbook.getInstance().getFakename()));
+                    fragment2.historyAdapter.changedata(ManageTotalbook.getInstance().getwantwriter(ManageTotalbook.getInstance().getFakename()));
+                }
             }
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             if(fragment1!=null){

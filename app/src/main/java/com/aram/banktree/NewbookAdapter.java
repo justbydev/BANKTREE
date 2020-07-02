@@ -29,13 +29,11 @@ public class NewbookAdapter extends RecyclerView.Adapter {
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView writer;
-        Button chatbutton;
         ImageView cover_image;
         TextView title;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             writer=itemView.findViewById(R.id.writer);
-            chatbutton=itemView.findViewById(R.id.chatbutton);
             cover_image=itemView.findViewById(R.id.cover_image);
             title=itemView.findViewById(R.id.title);
             context=itemView.getContext();
@@ -84,12 +82,12 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
-        myViewHolder.chatbutton.setTag(mList.get(position).getWriter());
+        //myViewHolder.chatbutton.setTag(mList.get(position).getWriter());
 
 
 
         //newbook에는 각각 채팅 버튼이 생성되어 있고 그 채팅 버튼을 눌렀을 때 작동하는 것
-        myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
+        /*myViewHolder.chatbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String want=v.getTag().toString();
@@ -107,7 +105,7 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                     ((MenuActivity)MenuActivity.menucontext).changechat(want, me);
                 }
             }
-        });
+        });*/
     }
 
     @Override
