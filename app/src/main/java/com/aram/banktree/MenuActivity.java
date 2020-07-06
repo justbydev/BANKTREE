@@ -44,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
     public String page;
     public String date;
     public int cat;
+    public int chat;
     public String fakename;
     ProgressDialog progressDialog;
 
@@ -53,6 +54,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.menu_main);
 
 
+        System.out.println(ManageTotalbook.getInstance().getFakename()+"first"+"=====================================");
 
         which=0;
         content=new ArrayList<>();
@@ -63,22 +65,8 @@ public class MenuActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null){
             logbutton.setText("로그아웃");
-            String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-            String temp=email.replace(".", "-");
-            DatabaseReference d= FirebaseDatabase.getInstance().getReference(temp);
-            d.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        ManageTotalbook.getInstance().setFakename(snapshot.getValue().toString());
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            System.out.println(ManageTotalbook.getInstance().getFakename()+"second"+"=====================================");
         }
         else{
             logbutton.setText("로그인");
@@ -212,7 +200,7 @@ public class MenuActivity extends AppCompatActivity {
                 //fragment1.addnewbook(title, writer);
                 //fragment1의 method를 사용하는 것으로 이것을 통해 recyclerview에 새로 등록된 책을 추가한다
 
-                fragment1.addnewbooktorecycler(title, writer, page, content, color, date, cat);
+                fragment1.addnewbooktorecycler(title, writer, page, content, color, date, cat, chat);
                 if(fragment2!=null){
                     fragment2.randombookAdapter.changedata(ManageTotalbook.getInstance().getwantwriter(ManageTotalbook.getInstance().getFakename()));
                     fragment2.historyAdapter.changedata(ManageTotalbook.getInstance().getwantwriter(ManageTotalbook.getInstance().getFakename()));
@@ -293,6 +281,7 @@ public class MenuActivity extends AppCompatActivity {
         if(fragment4!=null){
             getSupportFragmentManager().beginTransaction().hide(fragment4).commit();
         }*/
+        System.out.println(want+me+"===============================");
         fragment3.settingchat(want, me);
     }
 }

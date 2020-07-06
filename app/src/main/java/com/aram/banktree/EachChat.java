@@ -57,11 +57,10 @@ public class EachChat extends AppCompatActivity {
 
         want=(TextView)findViewById(R.id.want);
         Intent intent=getIntent();
-        other=intent.getExtras().getString("want");
+        other=intent.getStringExtra("want");
         want.setText(other);
         firebaseDatabase=FirebaseDatabase.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
-        me=firebaseAuth.getCurrentUser().getEmail();
+        me=ManageTotalbook.getInstance().getFakename();
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -71,8 +70,7 @@ public class EachChat extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         message_recycler_view.setLayoutManager(layoutManager);
 
-        othertemp=other.replace('.', '-');
-        metemp=me.replace('.', '-');
+
         mList=new ArrayList<ChatMessage>();
 
         //각각 채팅방은 대화 하나당 하나의 목록으로써 recyclerview를 사용하고
@@ -82,24 +80,27 @@ public class EachChat extends AppCompatActivity {
         mAdapter = new EachChatAdapter(mList, me);
         message_recycler_view.setAdapter(mAdapter);
 
-        myRef=firebaseDatabase.getReference("Chat").child(metemp).child(othertemp);
+        System.out.println(me+other+"======+++++++++++=================");
+        System.out.println("EachChat java");
 
-
+        myRef=firebaseDatabase.getReference("Chat").child(me).child(other);
         //채팅 대화를 전송할 때의 method로써 ChatMessage class를 이용해서 firebase에 저장
         send_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text=message_edit.getText().toString();
-                if(text!=null||text.length()>0){
+                String text=message_edit.getText().toString().trim();
+                if(text!=null&&text.length()>0&&text!=""&&text!=" "){
                     ChatMessage chatMessage=new ChatMessage();
                     chatMessage.setName(me);
-                    chatMessage.setText(text);
-                    message_edit.setText("");
-                    myRef=firebaseDatabase.getReference("Chat").child(othertemp).child(metemp);
+                    String t=message_edit.getText().toString();
+                    chatMessage.setText(t);
+                    myRef=firebaseDatabase.getReference("Chat").child(other).child(me);
                     myRef.push().setValue(chatMessage);
-                    myRef=firebaseDatabase.getReference("Chat").child(metemp).child(othertemp);
+                    myRef=firebaseDatabase.getReference("Chat").child(me).child(other);
                     myRef.push().setValue(chatMessage);
                 }
+
+                message_edit.setText("");
             }
         });
         //채팅 목록을 가져오기 위한 코드

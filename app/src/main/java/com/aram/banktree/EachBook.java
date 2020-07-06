@@ -21,6 +21,7 @@ public class EachBook extends AppCompatActivity {
     String page;
     ArrayList<String> content;
     ArrayList<String> color;
+    int choose;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,10 @@ public class EachBook extends AppCompatActivity {
         page=intent.getStringExtra("page");
         content=intent.getStringArrayListExtra("content");
         color=intent.getStringArrayListExtra("color");
-
+        choose=intent.getIntExtra("choose", -1);
+        if(choose==3){
+            ((MenuActivity)MenuActivity.menucontext).which=3;
+        }
 
         eachbook_title.setText(title);
 

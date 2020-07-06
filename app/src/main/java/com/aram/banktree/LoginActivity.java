@@ -3,6 +3,7 @@ package com.aram.banktree;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -42,6 +48,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(firebaseAuth.getCurrentUser() != null){
             //이미 로그인 되었다면 이 액티비티를 종료함
+            String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            String temp=email.replace(".", "-");
+            DatabaseReference d= FirebaseDatabase.getInstance().getReference(temp);
+            d.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        ManageTotalbook.getInstance().setFakename(snapshot.getValue().toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            SystemClock.sleep(500);
             finish();
             //그리고 MenuActivity를 연다.
             startActivity(new Intent(getApplicationContext(), MenuActivity.class));
@@ -85,6 +108,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if(task.isSuccessful()) {
+                            String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                            String temp=email.replace(".", "-");
+                            DatabaseReference d= FirebaseDatabase.getInstance().getReference(temp);
+                            d.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                                        ManageTotalbook.getInstance().setFakename(snapshot.getValue().toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            SystemClock.sleep(500);
                             finish();
                             //login이 정상적으로 완료되면 MenuActivity로
                             startActivity(new Intent(getApplicationContext(), MenuActivity.class));

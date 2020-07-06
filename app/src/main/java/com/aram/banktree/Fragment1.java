@@ -169,7 +169,7 @@ public class Fragment1 extends Fragment {
     }
     //이 method는 새로운 전자책 등록시에 오는 method로 Totalbook class로 firebase에 등록
     //recyclerview에 새롭게 추가한다
-    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date, int cat){
+    public void addnewbooktorecycler(String title, String writer, String page, ArrayList<String> content, ArrayList<String> color, String date, int cat, int chat){
         newbook=new Totalbook();
         newbook.setTitle(title);
         newbook.setWriter(ManageTotalbook.getInstance().getFakename());
@@ -178,6 +178,7 @@ public class Fragment1 extends Fragment {
         newbook.setColor(color);
         newbook.setDate(date);
         newbook.setCat(cat);
+        newbook.setChat(chat);
         totalbook.add(newbook);
         twenty.add(newbook);
         home_spinner.setSelection(0);

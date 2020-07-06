@@ -66,6 +66,7 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                 intent.putStringArrayListExtra("color", mList.get(position).getColor());
                 intent.putExtra("page", mList.get(position).getPage());
                 intent.putExtra("date", mList.get(position).getDate());
+                intent.putExtra("chat", mList.get(position).getChat());
                 context.startActivity(intent);
             }
         });
@@ -79,6 +80,7 @@ public class NewbookAdapter extends RecyclerView.Adapter {
                 intent.putStringArrayListExtra("color", mList.get(position).getColor());
                 intent.putExtra("page", mList.get(position).getPage());
                 intent.putExtra("date", mList.get(position).getDate());
+                intent.putExtra("chat", mList.get(position).getChat());
                 context.startActivity(intent);
             }
         });

@@ -76,6 +76,11 @@ public class ManageTotalbook {
                             cat=jsonObject.getInt("§cat");
                         }
                         totalbook.setCat(cat);
+                        int chat=jsonObject.optInt("chat", -1);
+                        if(chat==-1){
+                            chat=jsonObject.getInt("§chat");
+                        }
+                        totalbook.setChat(chat);
                         JSONArray color=jsonObject.optJSONArray("color");
                         if(color==null){
                             color=jsonObject.getJSONArray("§color");

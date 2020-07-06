@@ -32,11 +32,14 @@ public class Fragment3 extends Fragment {
     RecyclerView recyclerView;
     private ArrayList<ChatListData> mArrayList;
     private ChatListAdapter chatListAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseAuth firebaseAuth;
+
+    int flag=0;
 
     public Fragment3(){}
 
@@ -47,7 +50,9 @@ public class Fragment3 extends Fragment {
         View v=inflater.inflate(R.layout.fragment3, container, false);
 
         recyclerView=(RecyclerView)v.findViewById(R.id.chatlist);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         mArrayList=new ArrayList<ChatListData>();
@@ -55,8 +60,9 @@ public class Fragment3 extends Fragment {
 
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
-        String email=firebaseAuth.getCurrentUser().getEmail().toString();
-        String temp=email.replace('.', '-');
+
+        String temp=ManageTotalbook.getInstance().getFakename();
+        System.out.println(temp+"----------------------------------");
         myRef=firebaseDatabase.getReference("Chatlist").child(temp);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -70,8 +76,6 @@ public class Fragment3 extends Fragment {
                 }
                 //여기는 채팅 하단 탭을 눌렀을 때 firebase에서 내가 채팅한 목록을 가져와서
                 //ChatListAdapter를 통해서 recyclerview에 채팅 리스트를 보여주는 역할이다
-                layoutManager=new LinearLayoutManager(getContext());
-                recyclerView.setLayoutManager(layoutManager);
                 chatListAdapter=new ChatListAdapter(mArrayList, getContext());
                 recyclerView.setAdapter(chatListAdapter);
             }
@@ -93,16 +97,14 @@ public class Fragment3 extends Fragment {
         int position=chatListAdapter.getwantposition(want);
         //getwantposition은 chatListAdapter class 속에 직접 작성한 method(override method 아님)
         if(position==-1){//만약 내가 채팅하고자 하는 사람과 처음 채팅하는 경우라면
-            String temp=me.replace('.', '-');
-            int size=chatListAdapter.getItemCount();
-            myRef=firebaseDatabase.getReference("Chatlist").child(temp);
+            myRef=firebaseDatabase.getReference("Chatlist").child(me);
             myRef.push().setValue(want);
-            String wanttemp=want.replace('.', '-');
-            myRef=firebaseDatabase.getReference("Chatlist").child(wanttemp);
+            myRef=firebaseDatabase.getReference("Chatlist").child(want);
             myRef.push().setValue(me);
             //맨처음 생성된 것이기 때문에 firebase에 데이터를 추가하고 chatListAdapter를 업데이트한다
-            mArrayList.add(0, new ChatListData(want));
-            chatListAdapter.notifyItemInserted(0);
+            int sz=chatListAdapter.getItemCount();
+            mArrayList.add(new ChatListData(want));
+            chatListAdapter.notifyItemInserted(sz);
             Intent intent=new Intent(getContext(), EachChat.class);
             //EachChat은 각 채팅방을 의미
             intent.putExtra("want", want);

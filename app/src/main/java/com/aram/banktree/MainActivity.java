@@ -316,6 +316,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                     writerreference.child(tmp).setValue(writername);
                                                     DatabaseReference t=FirebaseDatabase.getInstance().getReference(tmp);
                                                     t.push().setValue(writername);
+                                                    DatabaseReference wt=FirebaseDatabase.getInstance().getReference(writername);
+                                                    wt.push().setValue(tmp);
                                                     //회원가입을 하면 우선 firebase에 회원에 대한 정보를 저장
                                                     //firebase 저장시 Member class를 사용
                                                     //회원가입 후 자동 로그인이 아니라 다시 한번 로그인하도록 유도하기 위해 signOut()시키고

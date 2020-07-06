@@ -13,6 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 //채팅방 목록 recyclerview를 위한 Adapter
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -31,7 +37,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             nickname=(TextView)itemView.findViewById(R.id.nickname);
             chatlayout=(LinearLayout)itemView.findViewById(R.id.chatlayout);
-            chatlayout.setOnClickListener(new View.OnClickListener() {
+            /*chatlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos=getAdapterPosition();
@@ -52,7 +58,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         context.startActivity(intent);
                     }
                 }
-            });
+            });*/
         }
     }
 
@@ -69,7 +75,27 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatListViewHolder chatListViewHolder=(ChatListViewHolder)holder;
         chatListViewHolder.nickname.setText(mList.get(position).getNickname());
-
+        final int pos=position;
+        chatListViewHolder.nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String want=mList.get(pos).getNickname();
+                deleteItem(pos, want);
+                Intent intent=new Intent(context, EachChat.class);
+                intent.putExtra("want", want);
+                context.startActivity(intent);
+            }
+        });
+        chatListViewHolder.chatlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String want=mList.get(pos).getNickname();
+                deleteItem(pos, want);
+                Intent intent=new Intent(context, EachChat.class);
+                intent.putExtra("want", want);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -89,4 +115,36 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return position;
     }
 
+    public void deleteItem(int pos, String want){
+        mList.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, mList.size());
+        int sz=mList.size();
+        mList.add(new ChatListData(want));
+        notifyItemInserted(sz);
+        String me=ManageTotalbook.getInstance().getFakename();
+        final ArrayList<ChatListData> total=new ArrayList<>();
+        final String wt=want;
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Chatlist").child(me);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    String json=snapshot.getValue().toString();
+                    String temp=json;
+                    if(json.equals(wt)){
+                        snapshot.getRef().removeValue();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference newdatabase=FirebaseDatabase.getInstance().getReference("Chatlist").child(me);
+        newdatabase.push().setValue(want);
+    }
 }

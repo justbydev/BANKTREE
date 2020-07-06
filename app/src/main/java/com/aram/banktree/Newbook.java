@@ -198,6 +198,7 @@ public class Newbook extends AppCompatActivity {
                     bookcontent.setDate(simpleDateFormat.format(cal.getTime()));
                     String date=simpleDateFormat.format(cal.getTime());
                     bookcontent.setCat(cat);
+                    bookcontent.setChat(commutset);
                     contentreference.push().setValue(bookcontent);
                     ((MenuActivity)MenuActivity.menucontext).title=title;
                     ((MenuActivity)MenuActivity.menucontext).writer=email;
@@ -207,6 +208,7 @@ public class Newbook extends AppCompatActivity {
                     ((MenuActivity)MenuActivity.menucontext).date=date;
                     ((MenuActivity)MenuActivity.menucontext).which=1;
                     ((MenuActivity)MenuActivity.menucontext).cat=cat;
+                    ((MenuActivity)MenuActivity.menucontext).chat=commutset;
                     ((MenuActivity)MenuActivity.menucontext).fakename=ManageTotalbook.getInstance().getFakename();
                     finish();
                     return;
