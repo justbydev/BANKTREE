@@ -14,6 +14,7 @@ public class Bookcontent {
     //int []color;
     //Bitmap[]images;
     int page;
+    int chat;
     public Bookcontent(String writer, int page){
         this.writer=writer;
         this.page=page;
@@ -62,6 +63,14 @@ public class Bookcontent {
 
     public void setCat(int cat) {
         this.cat = cat;
+    }
+
+    public int getChat() {
+        return chat;
+    }
+
+    public void setChat(int chat) {
+        this.chat = chat;
     }
     /*public Bitmap[] getImages() {
         return images;

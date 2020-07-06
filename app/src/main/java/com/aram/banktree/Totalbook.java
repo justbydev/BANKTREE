@@ -11,6 +11,7 @@ public class Totalbook {
     private String page;
     private String date;
     private int cat;
+    private int chat;
 
     public Totalbook() {
 
@@ -70,5 +71,13 @@ public class Totalbook {
 
     public void setCat(int cat) {
         this.cat = cat;
+    }
+
+    public int getChat() {
+        return chat;
+    }
+
+    public void setChat(int chat) {
+        this.chat = chat;
     }
 }

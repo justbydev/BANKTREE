@@ -59,6 +59,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
                 intent.putStringArrayListExtra("content", mList.get(pos).getContent());
                 intent.putStringArrayListExtra("color", mList.get(pos).getColor());
                 intent.putExtra("page", mList.get(pos).getPage());
+                intent.putExtra("choose", 3);
                 context.startActivity(intent);
             }
         });
@@ -70,6 +71,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
                 intent.putStringArrayListExtra("content", mList.get(pos).getContent());
                 intent.putStringArrayListExtra("color", mList.get(pos).getColor());
                 intent.putExtra("page", mList.get(pos).getPage());
+                intent.putExtra("choose", 3);
                 context.startActivity(intent);
             }
         });
@@ -81,6 +83,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
                 intent.putStringArrayListExtra("content", mList.get(pos).getContent());
                 intent.putStringArrayListExtra("color", mList.get(pos).getColor());
                 intent.putExtra("page", mList.get(pos).getPage());
+                intent.putExtra("choose", 3);
                 context.startActivity(intent);
             }
         });

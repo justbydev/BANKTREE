@@ -60,6 +60,7 @@ public class RandombookAdapter extends RecyclerView.Adapter {
                     intent.putStringArrayListExtra("color", mList.get(position).getColor());
                     intent.putExtra("page", mList.get(position).getPage());
                     intent.putExtra("date", mList.get(position).getDate());
+                    intent.putExtra("chat", mList.get(position).getChat());
                     context.startActivity(intent);
 
                 }
@@ -74,6 +75,7 @@ public class RandombookAdapter extends RecyclerView.Adapter {
                     intent.putStringArrayListExtra("color", mList.get(position).getColor());
                     intent.putExtra("page", mList.get(position).getPage());
                     intent.putExtra("date", mList.get(position).getDate());
+                    intent.putExtra("chat", mList.get(position).getChat());
                     context.startActivity(intent);
 
                 }
@@ -88,6 +90,7 @@ public class RandombookAdapter extends RecyclerView.Adapter {
                     intent.putStringArrayListExtra("content", mList.get(position).getContent());
                     intent.putStringArrayListExtra("color", mList.get(position).getColor());
                     intent.putExtra("page", mList.get(position).getPage());
+                    intent.putExtra("choose", 3);
                     context.startActivity(intent);
                 }
             });
@@ -99,6 +102,7 @@ public class RandombookAdapter extends RecyclerView.Adapter {
                     intent.putStringArrayListExtra("content", mList.get(position).getContent());
                     intent.putStringArrayListExtra("color", mList.get(position).getColor());
                     intent.putExtra("page", mList.get(position).getPage());
+                    intent.putExtra("choose", 3);
                     context.startActivity(intent);
                 }
             });
