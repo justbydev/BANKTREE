@@ -142,7 +142,7 @@ public class Fragment1 extends Fragment {
         random_book.setHasFixedSize(true);
         gridLayout=new GridLayoutManager(getContext(), 2);
         random_book.setLayoutManager(gridLayout);
-
+        //random_book.addItemDecoration(new ItemDecoration(getActivity()));
         //randombookAdapter는 랜덤 책 전체를 보여주는 recyclerview를 위한 Adapter
         //randombook recyclerview는 Gridlayout
         randombookAdapter=new RandombookAdapter(totalbook, 0);
